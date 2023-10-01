@@ -147,10 +147,14 @@ def main():
 
             submit_button = st.form_submit_button(label='Aplicar')
         
-        # Dados filtrados
+        # Botões de download dos dados filtrados
         st.write('## Após os filtros')
         st.write(bank.head())
         
+        df_xlsx = to_excel(bank)
+        st.download_button(label='📥 Download tabela filtrada em EXCEL',
+                            data=df_xlsx ,
+                            file_name= 'bank_filtrado.xlsx')
         st.markdown("---")
 
         # PLOTS    
@@ -164,6 +168,25 @@ def main():
             bank_target_perc = bank_target_perc.sort_index()
         except:
             st.error('Erro no filtro')
+        
+        # Botões de download dos dados dos gráficos
+        col1, col2 = st.columns(2)
+
+        df_xlsx = to_excel(bank_raw_target_perc)
+        col1.write('### Proporção original')
+        col1.write(bank_raw_target_perc)
+        col1.download_button(label='📥 Download',
+                            data=df_xlsx ,
+                            file_name= 'bank_proporcao_original.xlsx')
+        
+        df_xlsx = to_excel(bank_target_perc)
+        col2.write('### Proporção da tabela com filtros')
+        col2.write(bank_target_perc)
+        col2.download_button(label='📥 Download',
+                            data=df_xlsx ,
+                            file_name= 'bank_proporcao_filtrado.xlsx')
+        st.markdown("---")
+    
 
         # st.write('## Proporção de aceite')
         # PLOTS    
