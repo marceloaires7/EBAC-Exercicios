@@ -13,3 +13,8 @@ def analise(data, y):
                             'papel': 'covariavel'})
     analise.loc[analise.index == y, 'papel'] = 'resposta'
     return analise
+
+def stats(x, df):
+    team_stats = (pd.crosstab(columns=df['Result'], index=df[x]).sort_values(by=['Vitória', 'Empate', 'Derrota'], ascending= False))
+
+    return team_stats

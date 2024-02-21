@@ -158,7 +158,7 @@ def main():
         st.markdown("---")
 
         # PLOTS    
-        fig, ax = plt.subplots(1, 2, figsize = (5,3))
+        fig, ax = plt.subplots(1, 2, figsize = (15,5))
 
         bank_raw_target_perc = bank_raw.y.value_counts(normalize = True).to_frame()*100
         bank_raw_target_perc = bank_raw_target_perc.sort_index()
