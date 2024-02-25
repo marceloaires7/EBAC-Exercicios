@@ -2,8 +2,8 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 import streamlit as st
-from formulas import analise
-from formulas import stats
+from script import analise
+from script import stats
 
 sns.set_theme()
 
