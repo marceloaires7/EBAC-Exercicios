@@ -109,4 +109,4 @@ def biv_continua(var, ncat, df):
     ax[0].legend(bbox_to_anchor=(.83, 1.17), ncol=3)
     
     ax[1] = biv.cont.plot.bar()
-    return None
+    return biv
