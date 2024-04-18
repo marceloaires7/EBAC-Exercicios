@@ -7,7 +7,7 @@ import statsmodels.formula.api as smf
 import statsmodels.api as sm
 
 def Qualitativa (df, y, x):
-    # Criando bivariada para 'age' através do pd.crosstab().
+    # Criando  para 'age' através do pd.crosstab().
     # Nº de saudáveis
     # Nº de doentes
     # Total
@@ -34,7 +34,7 @@ def Quantitativa (df, y, x, quebra=5):
     # Categorizando a variável x em grupos com quebra padrão igual a 5.
     cat = pd.qcut(x=df[x], q=quebra, duplicates='drop')
 
-    # Criando bivariada para 'age' através do pd.crosstab().
+    # Criando  para 'age' através do pd.crosstab().
     # Nº de saudáveis
     # Nº de doentes
     # Total

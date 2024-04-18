@@ -75,7 +75,7 @@ def biv_discreta(var, df):
 def biv_continua(var, ncat, df):
     df['bom'] = 1-df.mau
     cat_srs, bins = pd.qcut(df[var], ncat, retbins=True, precision=0, duplicates='drop')
-    g = df.groupby(cat_srs)
+    g = df.groupby(cat_srs, observed=False)
 
     biv = pd.DataFrame({'qt_bom': g['bom'].sum(),
                         'qt_mau': g['mau'].sum(),
