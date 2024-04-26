@@ -80,7 +80,7 @@ def biv_continua(var, ncat, df):
     biv = pd.DataFrame({'qt_bom': g['bom'].sum(),
                         'qt_mau': g['mau'].sum(),
                         'mau':g['mau'].mean(), 
-                        var: g[var].mean(), 
+                        var: g[var].mean(),     
                         'cont':g[var].count()})
     
     biv['ep'] = (biv.mau*(1-biv.mau)/biv.cont)**.5
