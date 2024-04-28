@@ -110,3 +110,35 @@ def biv_continua(var, ncat, df):
     
     ax[1] = biv.cont.plot.bar()
     return biv
+
+# Calcular o Gini
+def calcula_gini(RESP, PD):
+    #AUC
+    auc = roc_auc_score(RESP, PD)
+
+    #Gini
+    gini = 2 * auc - 1
+    return gini
+
+
+def print_metricas(dados, PD='PD', CLASSE_PRED='classe_predita', RESP='mau'):
+
+    #Acuracia
+    acc = accuracy_score(dados[RESP], dados[CLASSE_PRED])
+
+    #AUC
+    auc = roc_auc_score(dados[RESP], dados[PD])
+
+    #Gini
+    gini = 2 * auc - 1
+
+    #KS
+    ks = ks_2samp(dados.loc[dados[RESP] == 1, PD], dados.loc[dados[RESP] != 1,
+                                                             PD]).statistic
+
+    print('KS:       {0:.2f}%'.format(ks * 100))
+    print('AUC:      {0:.2f}%'.format(auc * 100))
+    print('GINI:     {0:.2f}%'.format(gini * 100))
+    print('Acurácia: {0:.2f}%\n'.format(acc * 100))
+
+    return None
