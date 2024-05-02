@@ -2,9 +2,9 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 import numpy as np
-import time
-import streamlit
+from sklearn.metrics import accuracy_score, roc_auc_score
 from scipy.stats import t
+from scipy.stats import ks_2samp
 
 def analise(data, y):
     analise = pd.DataFrame({'dtype': data.dtypes,
