@@ -111,16 +111,6 @@ def biv_continua(var, ncat, df):
     ax[1] = biv.cont.plot.bar()
     return biv
 
-# Calcular o Gini
-def calcula_gini(RESP, PD):
-    #AUC
-    auc = roc_auc_score(RESP, PD)
-
-    #Gini
-    gini = 2 * auc - 1
-    return gini
-
-
 def print_metricas(dados, PD='PD', CLASSE_PRED='classe_predita', RESP='mau'):
 
     #Acuracia
