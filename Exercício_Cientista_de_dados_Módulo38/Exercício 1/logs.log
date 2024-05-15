@@ -62,3 +62,103 @@
 2024-05-14 18:54:29,706:WARNING:c:\Users\Marcelo\anaconda3\Lib\site-packages\seaborn\_oldcore.py:1119: FutureWarning: use_inf_as_na option is deprecated and will be removed in a future version. Convert inf values to NaN before operating instead.
   with pd.option_context('mode.use_inf_as_na', True):
 
+2024-05-15 10:37:55,280:WARNING:
+'cuml' is a soft dependency and not included in the pycaret installation. Please run: `pip install cuml` to install.
+2024-05-15 10:37:55,280:WARNING:
+'cuml' is a soft dependency and not included in the pycaret installation. Please run: `pip install cuml` to install.
+2024-05-15 10:37:55,280:WARNING:
+'cuml' is a soft dependency and not included in the pycaret installation. Please run: `pip install cuml` to install.
+2024-05-15 10:37:55,281:WARNING:
+'cuml' is a soft dependency and not included in the pycaret installation. Please run: `pip install cuml` to install.
+2024-05-15 10:39:42,283:WARNING:
+'cuml' is a soft dependency and not included in the pycaret installation. Please run: `pip install cuml` to install.
+2024-05-15 10:39:42,283:WARNING:
+'cuml' is a soft dependency and not included in the pycaret installation. Please run: `pip install cuml` to install.
+2024-05-15 10:39:42,283:WARNING:
+'cuml' is a soft dependency and not included in the pycaret installation. Please run: `pip install cuml` to install.
+2024-05-15 10:39:42,283:WARNING:
+'cuml' is a soft dependency and not included in the pycaret installation. Please run: `pip install cuml` to install.
+2024-05-15 10:45:16,686:WARNING:C:\Users\Eduardo\AppData\Local\Temp\ipykernel_4660\744342790.py:3: FutureWarning: 
+
+Passing `palette` without assigning `hue` is deprecated and will be removed in v0.14.0. Assign the `x` variable to `hue` and set `legend=False` for the same effect.
+
+  sns.countplot(data=df, x=col, palette="tab10")
+
+2024-05-15 10:45:17,748:WARNING:C:\Users\Eduardo\AppData\Local\Temp\ipykernel_4660\744342790.py:3: FutureWarning: 
+
+Passing `palette` without assigning `hue` is deprecated and will be removed in v0.14.0. Assign the `x` variable to `hue` and set `legend=False` for the same effect.
+
+  sns.countplot(data=df, x=col, palette="tab10")
+
+2024-05-15 10:45:18,770:WARNING:C:\Users\Eduardo\AppData\Local\Temp\ipykernel_4660\744342790.py:3: FutureWarning: 
+
+Passing `palette` without assigning `hue` is deprecated and will be removed in v0.14.0. Assign the `x` variable to `hue` and set `legend=False` for the same effect.
+
+  sns.countplot(data=df, x=col, palette="tab10")
+
+2024-05-15 10:45:19,869:WARNING:C:\Users\Eduardo\AppData\Local\Temp\ipykernel_4660\744342790.py:3: FutureWarning: 
+
+Passing `palette` without assigning `hue` is deprecated and will be removed in v0.14.0. Assign the `x` variable to `hue` and set `legend=False` for the same effect.
+
+  sns.countplot(data=df, x=col, palette="tab10")
+
+2024-05-15 10:45:20,998:WARNING:C:\Users\Eduardo\AppData\Local\Temp\ipykernel_4660\744342790.py:3: FutureWarning: 
+
+Passing `palette` without assigning `hue` is deprecated and will be removed in v0.14.0. Assign the `x` variable to `hue` and set `legend=False` for the same effect.
+
+  sns.countplot(data=df, x=col, palette="tab10")
+
+2024-05-15 10:45:22,092:WARNING:C:\Users\Eduardo\AppData\Local\Temp\ipykernel_4660\744342790.py:3: FutureWarning: 
+
+Passing `palette` without assigning `hue` is deprecated and will be removed in v0.14.0. Assign the `x` variable to `hue` and set `legend=False` for the same effect.
+
+  sns.countplot(data=df, x=col, palette="tab10")
+
+2024-05-15 10:45:23,211:WARNING:C:\Users\Eduardo\AppData\Local\Temp\ipykernel_4660\744342790.py:3: FutureWarning: 
+
+Passing `palette` without assigning `hue` is deprecated and will be removed in v0.14.0. Assign the `x` variable to `hue` and set `legend=False` for the same effect.
+
+  sns.countplot(data=df, x=col, palette="tab10")
+
+2024-05-15 11:01:54,181:WARNING:C:\Users\Eduardo\AppData\Local\Temp\ipykernel_4660\106513762.py:5: FutureWarning: 
+
+Passing `palette` without assigning `hue` is deprecated and will be removed in v0.14.0. Assign the `x` variable to `hue` and set `legend=False` for the same effect.
+
+  sns.countplot(data=df, x=col, palette="tab10")
+
+2024-05-15 11:01:55,935:WARNING:C:\Users\Eduardo\AppData\Local\Temp\ipykernel_4660\106513762.py:5: FutureWarning: 
+
+Passing `palette` without assigning `hue` is deprecated and will be removed in v0.14.0. Assign the `x` variable to `hue` and set `legend=False` for the same effect.
+
+  sns.countplot(data=df, x=col, palette="tab10")
+
+2024-05-15 11:01:57,646:WARNING:C:\Users\Eduardo\AppData\Local\Temp\ipykernel_4660\106513762.py:5: FutureWarning: 
+
+Passing `palette` without assigning `hue` is deprecated and will be removed in v0.14.0. Assign the `x` variable to `hue` and set `legend=False` for the same effect.
+
+  sns.countplot(data=df, x=col, palette="tab10")
+
+2024-05-15 11:01:59,419:WARNING:C:\Users\Eduardo\AppData\Local\Temp\ipykernel_4660\106513762.py:5: FutureWarning: 
+
+Passing `palette` without assigning `hue` is deprecated and will be removed in v0.14.0. Assign the `x` variable to `hue` and set `legend=False` for the same effect.
+
+  sns.countplot(data=df, x=col, palette="tab10")
+
+2024-05-15 11:02:01,176:WARNING:C:\Users\Eduardo\AppData\Local\Temp\ipykernel_4660\106513762.py:5: FutureWarning: 
+
+Passing `palette` without assigning `hue` is deprecated and will be removed in v0.14.0. Assign the `x` variable to `hue` and set `legend=False` for the same effect.
+
+  sns.countplot(data=df, x=col, palette="tab10")
+
+2024-05-15 11:02:02,919:WARNING:C:\Users\Eduardo\AppData\Local\Temp\ipykernel_4660\106513762.py:5: FutureWarning: 
+
+Passing `palette` without assigning `hue` is deprecated and will be removed in v0.14.0. Assign the `x` variable to `hue` and set `legend=False` for the same effect.
+
+  sns.countplot(data=df, x=col, palette="tab10")
+
+2024-05-15 11:02:04,694:WARNING:C:\Users\Eduardo\AppData\Local\Temp\ipykernel_4660\106513762.py:5: FutureWarning: 
+
+Passing `palette` without assigning `hue` is deprecated and will be removed in v0.14.0. Assign the `x` variable to `hue` and set `legend=False` for the same effect.
+
+  sns.countplot(data=df, x=col, palette="tab10")
+
