@@ -549,3 +549,61 @@ Passing `palette` without assigning `hue` is deprecated and will be removed in v
 2024-05-16 19:59:18,288:WARNING:c:\Users\Marcelo\anaconda3\Lib\site-packages\seaborn\_stats\counting.py:176: RuntimeWarning: Converting input from bool to <class 'numpy.uint8'> for compatibility.
   hist, edges = np.histogram(vals, **bin_kws, weights=weights, density=density)
 
+2024-05-16 21:16:24,504:WARNING:
+'cuml' is a soft dependency and not included in the pycaret installation. Please run: `pip install cuml` to install.
+2024-05-16 21:16:24,504:WARNING:
+'cuml' is a soft dependency and not included in the pycaret installation. Please run: `pip install cuml` to install.
+2024-05-16 21:16:24,504:WARNING:
+'cuml' is a soft dependency and not included in the pycaret installation. Please run: `pip install cuml` to install.
+2024-05-16 21:16:24,504:WARNING:
+'cuml' is a soft dependency and not included in the pycaret installation. Please run: `pip install cuml` to install.
+2024-05-16 21:16:49,796:WARNING:
+'cuml' is a soft dependency and not included in the pycaret installation. Please run: `pip install cuml` to install.
+2024-05-16 21:16:49,797:WARNING:
+'cuml' is a soft dependency and not included in the pycaret installation. Please run: `pip install cuml` to install.
+2024-05-16 21:16:49,797:WARNING:
+'cuml' is a soft dependency and not included in the pycaret installation. Please run: `pip install cuml` to install.
+2024-05-16 21:16:49,797:WARNING:
+'cuml' is a soft dependency and not included in the pycaret installation. Please run: `pip install cuml` to install.
+2024-05-16 21:17:19,956:WARNING:C:\Users\Eduardo\AppData\Local\Temp\ipykernel_7632\106513762.py:5: FutureWarning: 
+
+Passing `palette` without assigning `hue` is deprecated and will be removed in v0.14.0. Assign the `x` variable to `hue` and set `legend=False` for the same effect.
+
+  sns.countplot(data=df, x=col, palette="tab10")
+
+2024-05-16 21:17:21,128:WARNING:C:\Users\Eduardo\AppData\Local\Temp\ipykernel_7632\106513762.py:5: FutureWarning: 
+
+Passing `palette` without assigning `hue` is deprecated and will be removed in v0.14.0. Assign the `x` variable to `hue` and set `legend=False` for the same effect.
+
+  sns.countplot(data=df, x=col, palette="tab10")
+
+2024-05-16 21:17:22,349:WARNING:C:\Users\Eduardo\AppData\Local\Temp\ipykernel_7632\106513762.py:5: FutureWarning: 
+
+Passing `palette` without assigning `hue` is deprecated and will be removed in v0.14.0. Assign the `x` variable to `hue` and set `legend=False` for the same effect.
+
+  sns.countplot(data=df, x=col, palette="tab10")
+
+2024-05-16 21:17:23,649:WARNING:C:\Users\Eduardo\AppData\Local\Temp\ipykernel_7632\106513762.py:5: FutureWarning: 
+
+Passing `palette` without assigning `hue` is deprecated and will be removed in v0.14.0. Assign the `x` variable to `hue` and set `legend=False` for the same effect.
+
+  sns.countplot(data=df, x=col, palette="tab10")
+
+2024-05-16 21:17:24,979:WARNING:C:\Users\Eduardo\AppData\Local\Temp\ipykernel_7632\106513762.py:5: FutureWarning: 
+
+Passing `palette` without assigning `hue` is deprecated and will be removed in v0.14.0. Assign the `x` variable to `hue` and set `legend=False` for the same effect.
+
+  sns.countplot(data=df, x=col, palette="tab10")
+
+2024-05-16 21:17:26,298:WARNING:C:\Users\Eduardo\AppData\Local\Temp\ipykernel_7632\106513762.py:5: FutureWarning: 
+
+Passing `palette` without assigning `hue` is deprecated and will be removed in v0.14.0. Assign the `x` variable to `hue` and set `legend=False` for the same effect.
+
+  sns.countplot(data=df, x=col, palette="tab10")
+
+2024-05-16 21:17:27,599:WARNING:C:\Users\Eduardo\AppData\Local\Temp\ipykernel_7632\106513762.py:5: FutureWarning: 
+
+Passing `palette` without assigning `hue` is deprecated and will be removed in v0.14.0. Assign the `x` variable to `hue` and set `legend=False` for the same effect.
+
+  sns.countplot(data=df, x=col, palette="tab10")
+
