@@ -95,3 +95,67 @@ Passing `palette` without assigning `hue` is deprecated and will be removed in v
 
   sns.countplot(data=df, x=col, palette="tab10")
 
+2024-05-20 14:36:04,491:WARNING:
+'cuml' is a soft dependency and not included in the pycaret installation. Please run: `pip install cuml` to install.
+2024-05-20 14:36:04,492:WARNING:
+'cuml' is a soft dependency and not included in the pycaret installation. Please run: `pip install cuml` to install.
+2024-05-20 14:36:04,492:WARNING:
+'cuml' is a soft dependency and not included in the pycaret installation. Please run: `pip install cuml` to install.
+2024-05-20 14:36:04,492:WARNING:
+'cuml' is a soft dependency and not included in the pycaret installation. Please run: `pip install cuml` to install.
+2024-05-20 14:36:31,094:WARNING:C:\Users\Eduardo\AppData\Local\Temp\ipykernel_12192\106513762.py:5: FutureWarning: 
+
+Passing `palette` without assigning `hue` is deprecated and will be removed in v0.14.0. Assign the `x` variable to `hue` and set `legend=False` for the same effect.
+
+  sns.countplot(data=df, x=col, palette="tab10")
+
+2024-05-20 14:36:32,249:WARNING:C:\Users\Eduardo\AppData\Local\Temp\ipykernel_12192\106513762.py:5: FutureWarning: 
+
+Passing `palette` without assigning `hue` is deprecated and will be removed in v0.14.0. Assign the `x` variable to `hue` and set `legend=False` for the same effect.
+
+  sns.countplot(data=df, x=col, palette="tab10")
+
+2024-05-20 14:36:33,394:WARNING:C:\Users\Eduardo\AppData\Local\Temp\ipykernel_12192\106513762.py:5: FutureWarning: 
+
+Passing `palette` without assigning `hue` is deprecated and will be removed in v0.14.0. Assign the `x` variable to `hue` and set `legend=False` for the same effect.
+
+  sns.countplot(data=df, x=col, palette="tab10")
+
+2024-05-20 14:36:34,591:WARNING:C:\Users\Eduardo\AppData\Local\Temp\ipykernel_12192\106513762.py:5: FutureWarning: 
+
+Passing `palette` without assigning `hue` is deprecated and will be removed in v0.14.0. Assign the `x` variable to `hue` and set `legend=False` for the same effect.
+
+  sns.countplot(data=df, x=col, palette="tab10")
+
+2024-05-20 14:36:35,795:WARNING:C:\Users\Eduardo\AppData\Local\Temp\ipykernel_12192\106513762.py:5: FutureWarning: 
+
+Passing `palette` without assigning `hue` is deprecated and will be removed in v0.14.0. Assign the `x` variable to `hue` and set `legend=False` for the same effect.
+
+  sns.countplot(data=df, x=col, palette="tab10")
+
+2024-05-20 14:36:36,985:WARNING:C:\Users\Eduardo\AppData\Local\Temp\ipykernel_12192\106513762.py:5: FutureWarning: 
+
+Passing `palette` without assigning `hue` is deprecated and will be removed in v0.14.0. Assign the `x` variable to `hue` and set `legend=False` for the same effect.
+
+  sns.countplot(data=df, x=col, palette="tab10")
+
+2024-05-20 14:36:38,143:WARNING:C:\Users\Eduardo\AppData\Local\Temp\ipykernel_12192\106513762.py:5: FutureWarning: 
+
+Passing `palette` without assigning `hue` is deprecated and will be removed in v0.14.0. Assign the `x` variable to `hue` and set `legend=False` for the same effect.
+
+  sns.countplot(data=df, x=col, palette="tab10")
+
+2024-05-20 15:44:53,417:WARNING:<>:16: SyntaxWarning: 'tuple' object is not callable; perhaps you missed a comma?
+
+2024-05-20 15:44:53,418:WARNING:<>:16: SyntaxWarning: 'tuple' object is not callable; perhaps you missed a comma?
+
+2024-05-20 15:44:53,420:WARNING:C:\Users\Eduardo\AppData\Local\Temp\ipykernel_12192\1249384407.py:16: SyntaxWarning: 'tuple' object is not callable; perhaps you missed a comma?
+  preprocessamento = Pipeline(steps=['preprocessor', ('missing', imputer)
+
+2024-05-20 15:45:00,056:WARNING:<>:16: SyntaxWarning: 'tuple' object is not callable; perhaps you missed a comma?
+
+2024-05-20 15:45:00,057:WARNING:<>:16: SyntaxWarning: 'tuple' object is not callable; perhaps you missed a comma?
+
+2024-05-20 15:45:00,058:WARNING:C:\Users\Eduardo\AppData\Local\Temp\ipykernel_12192\979519990.py:16: SyntaxWarning: 'tuple' object is not callable; perhaps you missed a comma?
+  preprocessamento = Pipeline(steps=['preprocessor', ('missing', imputer)
+
