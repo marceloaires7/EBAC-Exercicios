@@ -1,14 +1,14 @@
-# Imports
+# %% Imports
 import pandas            as pd
 import streamlit         as st
 import seaborn           as sns
 import matplotlib.pyplot as plt
 from PIL                 import Image
 from io                  import BytesIO
-
+# %%
 # Set no tema do seaborn para melhorar o visual dos plots
 custom_params = {"axes.spines.right": False, "axes.spines.top": False}
-sns.set_theme(style="ticks", rc=custom_params)
+sns.set_theme(style='ticks', rc=custom_params, palette='tab10')
 
 # Função para ler os dados
 @st.cache_data(show_spinner=True)
