@@ -1,6 +1,6 @@
 import streamlit as st
 
 def app():
-    st.markdown(f'''
-                 # :green[GRÁFICOS]
-                 ''')
+    st.title('📊 :blue[GRÁFICOS]')
+
+    st.write(st.session_state['df_final'][0])

@@ -6,6 +6,33 @@ from sklearn.metrics import accuracy_score, roc_auc_score
 from scipy.stats import t
 from scipy.stats import ks_2samp
 
+# Dicionário dos Meses.
+
+meses = {1:  'Jan',
+         2:  'Fev',
+         3:  'Mar',
+         4:  'Abr',
+         5:  'Mai',
+         6:  'Jun',
+         7:  'Jul',
+         8:  'Ago',
+         9:  'Set',
+         10: 'Out',
+         11: 'Nov',
+         12: 'Dez'}
+
+# Função para ler os dados
+
+def load_data(file_data):
+    try:
+        df = pd.read_feather(file_data)
+        df.set_index(keys='data_ref', inplace=True)
+        df.index = df.index.month.map(script.meses) + '_' + df.index.year.astype(str)
+        df.drop(columns='index', inplace=True)
+        return df
+    except:
+        return pd.read_csv(file_data)
+
 def analise(data, y):
     analise = pd.DataFrame({'dtype': data.dtypes,
                             'contagem': data.count(),
