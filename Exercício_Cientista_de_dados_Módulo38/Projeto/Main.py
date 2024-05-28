@@ -4,12 +4,21 @@ from streamlit_option_menu import option_menu
 
 import Gráfico, Análise, Home
 
+@st.cache_data(show_spinner=True)
+def load_data(file_data):
+    try:
+        return pd.read_feather(file_data)
+    except:
+        return pd.read_csv(file_data, sep=';')
+
 st.set_page_config(page_title='Projeto Final',
                    page_icon='https://web-summit-avenger.imgix.net/production/logos/original/68de83f411416128ffe8c1a3789a99b5ba538a6f.png?ixlib=rb-3.2.1&fit=fill&fill-color=white',
                    initial_sidebar_state='expanded')
 
-st.sidebar.image(image='https://afubesp.org.br/wp-content/uploads/2022/07/logo_ebac-960x640.png', caption='Aluno: Marcelo Aires Coelho Otsuki (Cientista de Dados)')
+st.markdown('<style>div.block-container{padding-top:1rem;}</style>', unsafe_allow_html=True)
 
+st.sidebar.image(image='https://afubesp.org.br/wp-content/uploads/2022/07/logo_ebac-960x640.png',
+                 caption='Aluno: Marcelo Aires Coelho Otsuki (Cientista de Dados)')
 class Multiapp:
 
     def __init__(self):
@@ -25,8 +34,8 @@ class Multiapp:
 
         with st.sidebar:
             app = option_menu(
-                menu_title='Projeto Final',
-                menu_icon='briefcase-fill',
+                menu_title='MENU',
+                menu_icon='list',
                 options=['Home', 'Gráficos', 'Análise'],
                 icons=['house-fill', 'file-bar-graph-fill', 'rulers'],
                 default_index=0,
