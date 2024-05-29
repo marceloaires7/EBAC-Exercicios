@@ -11,17 +11,20 @@ def app():
     # Descrição da aba 'Home'
     st.markdown(f'''
                  <div style="text-align:center">
-                    <img src="https://raw.githubusercontent.com/Aline-Castro/RFV/main/ebac_logo-data_science.png" alt="ebac_logo-data_science" width="100%">
+                    <img src="https://raw.githubusercontent.com/marceloaires7/EBAC-Exercicios/main/Exercício_Cientista_de_dados_Módulo38/Projeto/ebac_logo-data_science.png" alt="ebac_logo-data_science" width="100%">
                  </div>
-                 # 💼 :green[Projeto Final]
-                 ### **Previsão de Renda**
+                
+                 # 💼 :green[Projeto Final - Cientista de Dados]
+                 ### Streamlit VI & Pycaret - Previsão de Renda
+                 ##### Aluno: Marcelo Aires Coelho Otsuki ( [<div><img src="https://i.sstatic.net/gVE0j.png"></div>](https://www.linkedin.com/in/marceloaco/) )
+                 ##### Data: Maio/2024
                  ---
                  ### Entendimento do negócio:
                  A análise para a concessão de cartões de crédito é um assunto de extrema importância no setor financeiro. Para que o limite de crédito seja liberado, o banco ou algum outro tipo de industria financeira, utilizam informações pessoais e dados fornecidos pelos candidato para prever a probabilidade de inadimplência futura e comportamento de endividamento com o cartão.
  
-                 Vamos utlizar desses dados fornecidos em um desafio do site [Kaggle](https://www.kaggle.com/), uma plataforma que promove desafios de ciência de dados, oferecendo prêmios em dinheiro para os melhores colocados. O link original está [aqui](https://www.kaggle.com/rikdifos/credit-card-approval-prediction).
+                 Vamos utlizar dados parecidos com o que encontramos no desafio do site [Kaggle](https://www.kaggle.com/), uma plataforma que promove desafios de ciência de dados, oferecendo prêmios em dinheiro para os melhores colocados. O link original está [aqui](https://www.kaggle.com/rikdifos/credit-card-approval-prediction). Porém utilizaremos dados fornecidos pela própria EBAC, em que há informações complementares em Português e com maior número de informações.
  
-                 O objetivo será construir o melhor modelo preditivo para identificar o perfil de renda do cliente, e assim tentar prever a renda de novos clientes.
+                 O objetivo será construir o melhor modelo preditivo para identificar o perfil de renda do cliente, e dizer se esse cliente é um potencial cliente inadimplente, considerado na variável respota como "mau" == True.
  
                  ---
                  ''', unsafe_allow_html=True)
