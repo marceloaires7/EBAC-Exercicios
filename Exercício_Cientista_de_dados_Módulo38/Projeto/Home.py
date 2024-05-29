@@ -28,27 +28,13 @@ def app():
  
                  ---
                  ''', unsafe_allow_html=True)
-    
-    if 'df_final' not in st.session_state:
-        st.session_state['df_final'] = ''
 
-    # Carregando arquivo.
-    st.file_uploader(':file_folder: Suba seu arquivo CSV ou FTR', type=(['csv', 'ftr', 'xlsx', 'xls']), key='upload')
-    
     try:
-        if st.session_state['upload'] is None:
-            df = st.session_state['df_final'][0]
-            file_name = st.session_state['df_final'][1]
-        else:
-            df = script.load_data(st.session_state['upload'])
-            file_name = st.session_state.get('upload').name
-            st.session_state['df_final'] = df, file_name
-        
-        st.success(f'Arquivo "{file_name}" carregado.', icon='✅')
+        df = st.session_state['df_final'][0]
 
         st.markdown('''### Amostra dos Dados:''')
         st.write(f"**Linhas: {df.shape[0]} / Colunas: {df.shape[1]+1}**")
-        st.write(df)
+        st.write(df.head())
 
 
         col4, col5 = st.columns([1, 1])
