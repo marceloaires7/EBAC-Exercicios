@@ -20,7 +20,8 @@ def app():
 
     plt.figure(figsize=(5,4))
     ax = sns.countplot(data=df, x=uniQuali, hue=uniQuali, legend=False, palette="tab10")
-
+    plt.ylabel('Contagem')
+    
     ax.tick_params(axis='x', rotation=270, length=6, width=2, grid_color='r', grid_alpha=0.5)
     ax.set_title(f'Contagem da variável {ax.get_xlabel()}', color='navy')
     ax.set_ylim(ymax=ax.get_ylim()[1]*1.2)
@@ -53,6 +54,7 @@ def app():
     
     plt.figure(figsize=(5,4))
     ax = sns.countplot(data=df_cut, x=uniQuanti, hue=uniQuanti, legend=False, palette="tab10")
+    plt.ylabel('Contagem')
 
     ax.tick_params(axis='x', rotation=270, length=6, width=2, grid_color='r', grid_alpha=0.5)
     ax.set_title(f'Contagem da variável {ax.get_xlabel()}', color='navy')
