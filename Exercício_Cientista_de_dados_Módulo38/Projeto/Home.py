@@ -10,6 +10,9 @@ def app():
 
     # Descrição da aba 'Home'
     st.markdown(f'''
+                 <div style="text-align:center">
+                    <img src="https://raw.githubusercontent.com/Aline-Castro/RFV/main/ebac_logo-data_science.png" alt="ebac_logo-data_science" width="100%">
+                 </div>
                  # 💼 :green[Projeto Final]
                  ### **Previsão de Renda**
                  ---
@@ -21,7 +24,7 @@ def app():
                  O objetivo será construir o melhor modelo preditivo para identificar o perfil de renda do cliente, e assim tentar prever a renda de novos clientes.
  
                  ---
-                 ''')
+                 ''', unsafe_allow_html=True)
     
     if 'df_final' not in st.session_state:
         st.session_state['df_final'] = ''
