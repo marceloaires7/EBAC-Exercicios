@@ -16,7 +16,7 @@ def app():
                 
                  # 💼 :green[Projeto Final - Cientista de Dados]
                  ### Streamlit VI & Pycaret - Previsão de Renda
-                 ##### Aluno: Marcelo Aires Coelho Otsuki[<div><img src="https://raw.githubusercontent.com/marceloaires7/EBAC-Exercicios/main/Exercício_Cientista_de_dados_Módulo38/Projeto/linkedin.png" width="2%"></div>](https://www.linkedin.com/in/marceloaco/)
+                 ##### Aluno: Marcelo Aires Coelho Otsuki ( [LinkedIn ![LinkedIn](https://raw.githubusercontent.com/marceloaires7/EBAC-Exercicios/main/Exercício_Cientista_de_dados_Módulo38/Projeto/linkedin.png)](https://www.linkedin.com/in/marceloaco/) )
                  ##### Data: Maio/2024
                  ---
                  ### Entendimento do negócio:
