@@ -10,7 +10,7 @@ st.set_page_config(page_title='Projeto Final',
                    initial_sidebar_state='expanded',
                    layout='wide')
 
-st.markdown('<style>div.block-container{padding-top:2rem;}</style>', unsafe_allow_html=True)
+st.markdown('<style>div.block-container{padding-top:3rem;}</style>', unsafe_allow_html=True)
 
 st.sidebar.image(image='https://afubesp.org.br/wp-content/uploads/2022/07/logo_ebac-960x640.png',
                  caption='Aluno: Marcelo Aires Coelho Otsuki (Cientista de Dados)')
@@ -51,6 +51,7 @@ class Multiapp:
         try:
             if st.session_state['upload'] is None:
                 df = st.session_state['df_final'][0]
+                df.fillna({'tempo_emprego': -1}, inplace=True)
                 file_name = st.session_state['df_final'][1]
             else:
                 df = script.load_data(st.session_state['upload'])
