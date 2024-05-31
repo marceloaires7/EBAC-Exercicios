@@ -173,6 +173,7 @@ def print_metricas(dados, PD='PD', CLASSE_PRED='classe_predita', RESP='mau'):
 @st.cache_data
 def graficoQuali(uniQuali):
     df = st.session_state['df_final'][0]
+
     fig, ax = plt.subplots(figsize=(5,4))
     ax = sns.countplot(data=df, x=uniQuali, hue=uniQuali, legend=False, palette="tab10")
     plt.ylabel('Contagem')
@@ -186,3 +187,24 @@ def graficoQuali(uniQuali):
                 textcoords='offset points', rotation=45)    
     
     return fig
+
+@st.cache_data
+def graficoQuanti(uniQuanti):
+    df = st.session_state['df_final'][0]
+    df['idade'] = pd.qcut(df['idade'], 9, precision=0, duplicates='drop')
+    df['tempo_emprego'] = pd.qcut(df['tempo_emprego'].fillna(-1), 9, precision=0, duplicates='drop')
+    df['renda'] = pd.qcut(df['renda'], 9, precision=0, duplicates='drop')
+    
+    fig, ax = plt.subplots(figsize=(5,4))
+    ax = sns.countplot(data=df, x=uniQuanti, hue=uniQuanti, legend=False, palette="tab10")
+    plt.ylabel('Contagem')
+
+    ax.tick_params(axis='x', rotation=270, length=6, width=2, grid_color='r', grid_alpha=0.5)
+    ax.set_title(f'Contagem da variável {ax.get_xlabel()}', color='navy')
+    ax.set_ylim(ymax=ax.get_ylim()[1]*1.2)
+    for p in ax.patches:
+        ax.annotate(f'{int(p.get_height())}', (p.get_x() + p.get_width() / 2., p.get_height()),
+                ha='left', va='baseline', fontsize=9, color='black', xytext=(0, 5),
+                textcoords='offset points', rotation=45)
+        
+    return fig, df
