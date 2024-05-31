@@ -2,6 +2,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 import numpy as np
+import streamlit as st
 from sklearn.metrics import accuracy_score, roc_auc_score
 from scipy.stats import t
 from scipy.stats import ks_2samp
@@ -23,7 +24,7 @@ meses = {1:  'Jan',
          12: 'Dez'}
 
 # Função para ler os dados
-
+@st.cache_data
 def load_data(file_data):
     try:
         df = pd.read_feather(file_data)
@@ -33,7 +34,8 @@ def load_data(file_data):
         return df
     except:
         return pd.read_csv(file_data)
-
+    
+@st.cache_data
 def analise(data, y):
     analise = pd.DataFrame({'dtype': data.dtypes,
                             'contagem': data.count(),
@@ -47,6 +49,7 @@ def analise(data, y):
                    .sort_values(by=['papel', 'nunique'],
                                 ascending=False))
 
+@st.cache_data
 def IV(variavel, resposta):
     tab = pd.crosstab(variavel, resposta, margins=True, margins_name='total')
 
@@ -61,6 +64,7 @@ def IV(variavel, resposta):
     tab['iv_parcial'] = (tab.pct_evento - tab.pct_nao_evento)*tab.woe
     return tab['iv_parcial'].sum()
 
+@st.cache_data
 def biv_discreta(var, df):
     df['bom'] = 1-df.mau
     g = df.groupby(var)
@@ -103,7 +107,7 @@ def biv_discreta(var, df):
     ax[1] = biv.cont.plot.bar()
     return biv
 
-
+@st.cache_data
 def biv_continua(var, ncat, df):
     df['bom'] = 1-df.mau
     cat_srs, bins = pd.qcut(df[var], ncat, retbins=True, precision=0, duplicates='drop')
@@ -143,6 +147,7 @@ def biv_continua(var, ncat, df):
     ax[1] = biv.cont.plot.bar()
     return biv
 
+@st.cache_data
 def print_metricas(dados, PD='PD', CLASSE_PRED='classe_predita', RESP='mau'):
 
     #Acuracia
@@ -164,3 +169,20 @@ def print_metricas(dados, PD='PD', CLASSE_PRED='classe_predita', RESP='mau'):
     print('Acurácia: {0:.2f}%\n'.format(acc * 100))
 
     return None
+
+@st.cache_data
+def graficoQuali(uniQuali):
+    df = st.session_state['df_final'][0]
+    fig, ax = plt.subplots(figsize=(5,4))
+    ax = sns.countplot(data=df, x=uniQuali, hue=uniQuali, legend=False, palette="tab10")
+    plt.ylabel('Contagem')
+    
+    ax.tick_params(axis='x', rotation=270, length=6, width=2, grid_color='r', grid_alpha=0.5)
+    ax.set_title(f'Contagem da variável {ax.get_xlabel()}', color='navy')
+    ax.set_ylim(ymax=ax.get_ylim()[1]*1.2)
+    for p in ax.patches:
+        ax.annotate(f'{int(p.get_height())}', (p.get_x() + p.get_width() / 2., p.get_height()),
+                ha='left', va='baseline', fontsize=9, color='black', xytext=(0, 5),
+                textcoords='offset points', rotation=45)    
+    
+    return fig

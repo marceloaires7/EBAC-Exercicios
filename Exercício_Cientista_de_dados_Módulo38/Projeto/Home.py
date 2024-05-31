@@ -36,7 +36,6 @@ def app():
         st.write(f"**Linhas: {df.shape[0]} / Colunas: {df.shape[1]+1}**")
         st.write(df.head())
 
-
         col4, col5 = st.columns([1, 1])
 
         col4.markdown('''### Lista de Variáveis com Quantidade e Tipo:''')
