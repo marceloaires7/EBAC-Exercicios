@@ -172,7 +172,7 @@ def print_metricas(dados, PD='PD', CLASSE_PRED='classe_predita', RESP='mau'):
 
 @st.cache_data
 def graficoQuali(uniQuali):
-    df = st.session_state['df_final'][0]
+    df = st.session_state['df'][0]
 
     fig, ax = plt.subplots(figsize=(5,4))
     ax = sns.countplot(data=df.sort_values(by=uniQuali), x=uniQuali, hue=uniQuali, legend=False, palette="tab10")
@@ -190,13 +190,13 @@ def graficoQuali(uniQuali):
 
 @st.cache_data
 def graficoQuanti(uniQuanti):
-    df = st.session_state['df_final'][0].copy()
+    df = st.session_state['df'][0].copy()
     df['idade'] = pd.qcut(df['idade'], 9, precision=0, duplicates='drop')
     df['tempo_emprego'] = pd.qcut(df['tempo_emprego'], 9, precision=0, duplicates='drop')
     df['renda'] = pd.qcut(df['renda'], 9, precision=0, duplicates='drop')
     
     fig, ax = plt.subplots(figsize=(5,4))
-    ax = sns.countplot(data=df.sort_values(by=uniQuanti), x=uniQuanti, hue=uniQuanti, legend=False, palette="tab10")
+    ax = sns.countplot(data=df.reset_index().sort_values(by=uniQuanti), x=uniQuanti, hue=uniQuanti, legend=False, palette="tab10")
     plt.ylabel('Contagem')
 
     ax.tick_params(axis='x', rotation=270, length=6, width=2, grid_color='r', grid_alpha=0.5)
@@ -208,3 +208,15 @@ def graficoQuanti(uniQuanti):
                 textcoords='offset points', rotation=45)
         
     return fig, df
+
+@st.cache_data
+def graficoBivar(UniQuali1, UniQuali2):
+    df = st.session_state['df'][0]
+
+    fig, ax = plt.subplots(figsize=(5,4))
+
+    ct = pd.crosstab(df[UniQuali1], df[UniQuali2])
+    sns.heatmap(ct, annot=True, cmap="YlGnBu", fmt='d', linewidths=.5, linecolor='black')
+    ax.set_title(f'Contagem da variável {UniQuali1} por {UniQuali2}', color='navy')  
+    
+    return fig, ct

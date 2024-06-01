@@ -6,5 +6,5 @@ import script
 
 
 def app():
-    df = st.session_state['df_final'][0]
+    df = st.session_state['df'][0]
     st.write(df)

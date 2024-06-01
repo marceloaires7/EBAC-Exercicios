@@ -32,7 +32,7 @@ class Multiapp:
             app = option_menu(
                 menu_title='MENU',
                 menu_icon='list',
-                options=['Home', 'Gráficos', 'Análise'],
+                options=['Home', 'Gráficos', 'Modelagem/Análise'],
                 icons=['house-fill', 'file-bar-graph-fill', 'rulers'],
                 default_index=0,
                 styles={
@@ -42,21 +42,21 @@ class Multiapp:
         "nav-link-selected": {"background-color": "darkcyan"},}
             )
 
-        if 'df_final' not in st.session_state:
-            st.session_state['df_final'] = ''
+        if 'df' not in st.session_state:
+            st.session_state['df'] = ''
 
         # Carregando arquivo.
         st.sidebar.file_uploader(':file_folder: Suba seu arquivo CSV ou FTR', type=(['csv', 'ftr', 'xlsx', 'xls']), key='upload')
 
         try:
             if st.session_state['upload'] is None:
-                df = st.session_state['df_final'][0]
+                df = st.session_state['df'][0]
                 df.fillna({'tempo_emprego': -1}, inplace=True)
-                file_name = st.session_state['df_final'][1]
+                file_name = st.session_state['df'][1]
             else:
                 df = script.load_data(st.session_state['upload'])
                 file_name = st.session_state.get('upload').name
-                st.session_state['df_final'] = df, file_name
+                st.session_state['df'] = df, file_name
             
             st.sidebar.success(f'Arquivo "{file_name}" carregado.', icon='✅')
 

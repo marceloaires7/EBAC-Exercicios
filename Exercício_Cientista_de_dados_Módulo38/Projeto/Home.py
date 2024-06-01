@@ -30,7 +30,7 @@ def app():
                  ''', unsafe_allow_html=True)
 
     try:
-        df = st.session_state['df_final'][0]
+        df = st.session_state['df'][0]
 
         st.markdown('''### Amostra dos Dados:''')
         st.write(f"**Linhas: {df.shape[0]} / Colunas: {df.shape[1]+1}**")
