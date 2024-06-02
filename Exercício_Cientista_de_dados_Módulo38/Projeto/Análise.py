@@ -7,6 +7,7 @@ from pycaret.classification import *
 
 
 def app():
-    df = st.session_state['df'][0]
+    st.title('📐 :red[ANÁLISE]')
+    data = st.session_state['data']
+    data_unseen = st.session_state['data_unseen']
     
-    clf = setup(data=data, target='mau', session_id=123)

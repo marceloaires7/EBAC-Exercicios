@@ -31,6 +31,8 @@ def app():
 
     try:
         df = st.session_state['df'][0]
+        data = st.session_state['data']
+        data_unseen = st.session_state['data_unseen']
 
         st.markdown('''### Amostra dos Dados:''')
         st.write(f"**Linhas: {df.shape[0]} / Colunas: {df.shape[1]+1}**")
@@ -51,23 +53,22 @@ def app():
             startangle=140)
         col5.pyplot(fig, use_container_width=False)
 
-        data = df.reset_index().sample(frac=.95, random_state=42)
-        data_unseen = df.reset_index().drop(data.index)
-        data.set_index(keys='data_ref', inplace=True)
-        data_unseen.set_index(keys='data_ref', inplace=True)
+        st.write('### Separação do Dataset:')
+        col1, col2 = st.columns([1,1])
 
-        st.write(f'''
-                 
-                  **Separação do Dataset:**
+        col1.write(
+            f'''
+             ##### Conjunto de dados para modelagem (treino e teste):
+             Linhas: {data.shape[0]} / Colunas: {data.shape[1]}
+             ''')
+        col1.write(script.analise(data=data, y='mau'))
 
-                  Conjunto de dados para modelagem (treino e teste): {data.shape}
-
-                  Conjunto de dados não usados no treino/teste, apenas como validação: {data_unseen.shape}
-
-                  ''')
-        
-        st.write(data.head())
-        st.write(data_unseen.head())
+        col2.write(
+            f'''
+             ##### Conjunto de dados não usados no treino/teste, apenas como validação:
+             Linhas: {data_unseen.shape[0]} / Colunas: {data_unseen.shape[1]}
+             ''')
+        col2.write(script.analise(data=data_unseen, y='mau'))
 
     except:
         st.error('Suba um arquivo válido.', icon='⛔')

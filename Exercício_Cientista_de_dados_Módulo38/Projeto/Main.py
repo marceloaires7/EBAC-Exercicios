@@ -47,6 +47,12 @@ class Multiapp:
         if 'df' not in st.session_state:
             st.session_state['df'] = ''
 
+        if 'data' not in st.session_state:
+            st.session_state['data'] = ''
+
+        if 'data_unseen' not in st.session_state:
+            st.session_state['data_unseen'] = ''
+
         # Carregando arquivo.
         st.sidebar.file_uploader(':file_folder: Suba seu arquivo CSV ou FTR', type=(['csv', 'ftr', 'xlsx', 'xls']), key='upload')
 
@@ -57,9 +63,18 @@ class Multiapp:
                 file_name = st.session_state['df'][1]
             else:
                 df = script.load_data(st.session_state['upload'])
+                df.fillna({'tempo_emprego': -1}, inplace=True)
                 file_name = st.session_state.get('upload').name
                 st.session_state['df'] = df, file_name
-            
+
+                data = df.reset_index().sample(frac=.95, random_state=42)
+                data_unseen = df.reset_index().drop(data.index)
+                data.set_index(keys='data_ref', inplace=True)
+                data_unseen.set_index(keys='data_ref', inplace=True)
+
+                st.session_state['data'] = data
+                st.session_state['data_unseen'] = data_unseen
+
             st.sidebar.success(f'Arquivo "{file_name}" carregado.', icon='✅')
 
         except:
@@ -70,7 +85,7 @@ class Multiapp:
             Home.app()
         if app == "Gráficos":
             Gráfico.app()    
-        if app == "Análise":
+        if app == "Modelagem/Análise":
             Análise.app()
     
     run()

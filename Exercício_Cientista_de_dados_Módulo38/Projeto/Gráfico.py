@@ -95,7 +95,8 @@ def app():
         ax.set_title("Heatmap")
 
         col1.pyplot(plt)
-        st.write(correlation_matrix)
-    except ValueError as e:
+        col2.write(correlation_matrix)
+    except:
         # Handle the specific ValueError exception
-        print(f"ValueError encountered: {e}")
+        st.error('Suba um arquivo válido.', icon='⛔')
+        st.error('Indísponível.', icon='⚠️')
