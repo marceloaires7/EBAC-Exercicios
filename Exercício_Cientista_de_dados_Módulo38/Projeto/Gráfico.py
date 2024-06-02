@@ -6,7 +6,11 @@ import script
 
 def app():
 
-    st.title('📊 :blue[GRÁFICOS]')
+    st.title(
+        f'''
+        📊 :blue[GRÁFICOS]
+        ---
+        ''')
 
     try:
 
@@ -70,8 +74,11 @@ def app():
 
         for i in df.select_dtypes(include='object').columns:
             for j in df.select_dtypes(include='object').columns:
-                st.session_state['graficos'][i+j] = script.graficoBivar(UniQuali1=i,
-                                                                        UniQuali2=j)
+                if i+j not in st.session_state['graficos']:
+                    st.session_state['graficos'][i+j] = script.graficoBivar(UniQuali1=i,
+                                                                            UniQuali2=j)
+                else:
+                    None
         # fig, ax = plt.subplots(figsize=(5,4))
         # ct = pd.crosstab(df[UniQuali1], df[UniQuali2])
         # sns.heatmap(ct, annot=True, cmap="YlGnBu", fmt='d', linewidths=.5, linecolor='black')
@@ -96,7 +103,7 @@ def app():
 
         col1.pyplot(plt)
         col2.write(correlation_matrix)
-    except:
+    except ValueError as e:
         # Handle the specific ValueError exception
         st.error('Suba um arquivo válido.', icon='⛔')
         st.error('Indísponível.', icon='⚠️')

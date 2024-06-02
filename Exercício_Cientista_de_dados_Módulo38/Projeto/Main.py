@@ -59,11 +59,11 @@ class Multiapp:
         try:
             if st.session_state['upload'] is None:
                 df = st.session_state['df'][0]
-                df.fillna({'tempo_emprego': -1}, inplace=True)
+                # df.fillna({'tempo_emprego': -1}, inplace=True)
                 file_name = st.session_state['df'][1]
             else:
                 df = script.load_data(st.session_state['upload'])
-                df.fillna({'tempo_emprego': -1}, inplace=True)
+                # df.fillna({'tempo_emprego': -1}, inplace=True)
                 file_name = st.session_state.get('upload').name
                 st.session_state['df'] = df, file_name
 
