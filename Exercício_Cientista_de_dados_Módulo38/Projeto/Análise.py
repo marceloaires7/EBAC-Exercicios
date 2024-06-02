@@ -3,8 +3,10 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import pandas as pd
 import script
+from pycaret.classification import *
 
 
 def app():
     df = st.session_state['df'][0]
-    st.write(df)
+    
+    clf = setup(data=data, target='mau', session_id=123)

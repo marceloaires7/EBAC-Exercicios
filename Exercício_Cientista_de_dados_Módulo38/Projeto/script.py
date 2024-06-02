@@ -220,3 +220,13 @@ def graficoBivar(UniQuali1, UniQuali2):
     ax.set_title(f'Contagem da variável {UniQuali1} por {UniQuali2}', color='navy')  
     
     return fig, ct
+
+@st.cache_data
+def pairplt():
+    df = st.session_state['df'][0]
+
+    fig, ax = plt.subplots(figsize=(5,4))
+    
+    ax = sns.pairplot(df.reset_index().select_dtypes(include='number'), diag_kind='auto', plot_kws={'s': 10})
+    
+    return fig, ax

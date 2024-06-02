@@ -1,5 +1,7 @@
 import streamlit as st
 import script
+import seaborn as sns
+import matplotlib.pyplot as plt
 
 from streamlit_option_menu import option_menu
 
@@ -62,6 +64,7 @@ class Multiapp:
 
         except:
             st.sidebar.error('Suba um arquivo válido.', icon='⛔')
+            
 
         if app == "Home":
             Home.app()

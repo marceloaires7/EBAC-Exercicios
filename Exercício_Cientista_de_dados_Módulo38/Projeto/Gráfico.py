@@ -87,12 +87,15 @@ def app():
             ## Descritiva bivariada (Qualitativa)''')
 
         col1, col2 = st.columns([1, 1])
-    # Plotando gráficos de dispersão para cada par de variáveis quantitativas
-        sns.pairplot(data=df)
+        fig, ax = plt.subplots(figsize=(5,4))
+
+        correlation_matrix = df.select_dtypes(include='number').corr()
+
+        ax = sns.heatmap(correlation_matrix, annot=True, cmap='coolwarm')
+        ax.set_title("Heatmap")
 
         col1.pyplot(plt)
-
-
+        st.write(correlation_matrix)
     except ValueError as e:
         # Handle the specific ValueError exception
         print(f"ValueError encountered: {e}")

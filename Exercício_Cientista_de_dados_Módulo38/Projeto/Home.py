@@ -51,6 +51,24 @@ def app():
             startangle=140)
         col5.pyplot(fig, use_container_width=False)
 
+        data = df.reset_index().sample(frac=.95, random_state=42)
+        data_unseen = df.reset_index().drop(data.index)
+        data.set_index(keys='data_ref', inplace=True)
+        data_unseen.set_index(keys='data_ref', inplace=True)
+
+        st.write(f'''
+                 
+                  **Separação do Dataset:**
+
+                  Conjunto de dados para modelagem (treino e teste): {data.shape}
+
+                  Conjunto de dados não usados no treino/teste, apenas como validação: {data_unseen.shape}
+
+                  ''')
+        
+        st.write(data.head())
+        st.write(data_unseen.head())
+
     except:
         st.error('Suba um arquivo válido.', icon='⛔')
         st.error('Indísponível.', icon='⚠️')
