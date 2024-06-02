@@ -15348,3 +15348,73 @@ Alternately, you can install this by running `pip install pycaret[models]`
 2024-06-02 18:16:13,118:INFO:Set up encoding of ordinal features.
 2024-06-02 18:16:13,216:INFO:Set up encoding of categorical features.
 2024-06-02 18:16:13,217:INFO:Set up removing outliers.
+2024-06-02 18:16:14,356:INFO:Finished creating preprocessing pipeline.
+2024-06-02 18:16:14,391:INFO:Pipeline: Pipeline(memory=FastMemory(location=C:\Users\Marcelo\AppData\Local\Temp\joblib),
+         steps=[('numerical_imputer',
+                 TransformerWrapper(exclude=None,
+                                    include=['qtd_filhos', 'idade',
+                                             'tempo_emprego',
+                                             'qt_pessoas_residencia', 'renda'],
+                                    transformer=SimpleImputer(add_indicator=False,
+                                                              copy=True,
+                                                              fill_value=-1,
+                                                              keep_empty_features=False,
+                                                              missing_values=nan,
+                                                              strategy='consta...
+                                    transformer=OneHotEncoder(cols=['tipo_renda',
+                                                                    'educacao',
+                                                                    'estado_civil',
+                                                                    'tipo_residencia'],
+                                                              drop_invariant=False,
+                                                              handle_missing='return_nan',
+                                                              handle_unknown='value',
+                                                              return_df=True,
+                                                              use_cat_names=True,
+                                                              verbose=0))),
+                ('remove_outliers',
+                 TransformerWrapper(exclude=None, include=None,
+                                    transformer=RemoveOutliers(method='iforest',
+                                                               n_jobs=1,
+                                                               random_state=123,
+                                                               threshold=0.05)))],
+         verbose=False)
+2024-06-02 18:16:14,391:INFO:Creating final display dataframe.
+2024-06-02 18:16:15,273:INFO:Setup _display_container:                     Description             Value
+0                    Session id               123
+1                        Target               mau
+2                   Target type            Binary
+3           Original data shape      (712500, 13)
+4        Transformed data shape      (687563, 30)
+5   Transformed train set shape      (473812, 30)
+6    Transformed test set shape      (213751, 30)
+7              Numeric features                 5
+8          Categorical features                 7
+9      Rows with missing values             16.8%
+10                   Preprocess              True
+11              Imputation type            simple
+12           Numeric imputation                -1
+13       Categorical imputation              mode
+14     Maximum one-hot encoding                25
+15              Encoding method              None
+16              Remove outliers              True
+17           Outliers threshold              0.05
+18               Fold Generator   StratifiedKFold
+19                  Fold Number                10
+20                     CPU Jobs                -1
+21                      Use GPU             False
+22               Log Experiment             False
+23              Experiment Name  clf-default-name
+24                          USI              61c2
+2024-06-02 18:16:15,349:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-06-02 18:16:15,349:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-06-02 18:16:15,419:WARNING:
+'xgboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install xgboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-06-02 18:16:15,419:WARNING:
+'catboost' is a soft dependency and not included in the pycaret installation. Please run: `pip install catboost` to install.
+Alternately, you can install this by running `pip install pycaret[models]`
+2024-06-02 18:16:15,420:INFO:setup() successfully completed in 3.66s...............
