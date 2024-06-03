@@ -222,25 +222,12 @@ def graficoBivar(UniQuali1, UniQuali2):
     return fig, ct
 
 @st.cache_data
-def pairplt():
+def graficoBivar2(UniQuanti1, UniQuanti2):
     df = st.session_state['df'][0]
 
     fig, ax = plt.subplots(figsize=(5,4))
+
+    sns.scatterplot(data=df.reset_index(), x=df.reset_index()[UniQuanti1], y=df.reset_index()[UniQuanti2])
+    ax.set_title(f'Contagem da variável {UniQuanti1} por {UniQuanti2}', color='navy')  
     
-    ax = sns.pairplot(df.reset_index().select_dtypes(include='number'), diag_kind='auto', plot_kws={'s': 10})
-    
-    return fig, ax
-
-@st.cache_data
-def graficoBivar2(Uniquant):
-    
-    df = st.session_state['df']
-
-    fig, ax = plt.subplots(figsize=(5,4))
-
-    correlation_matrix = df.select_dtypes(include='number').corr()
-
-    ax = sns.heatmap(correlation_matrix, annot=True, cmap='coolwarm')
-    ax.set_title("Heatmap")
-
-    return fig, correlation_matrix
+    return fig

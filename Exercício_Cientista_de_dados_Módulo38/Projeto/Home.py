@@ -59,6 +59,8 @@ def app():
         col1.write(
             f'''
              ##### Conjunto de dados para modelagem (treino e teste):
+             **data:**
+
              Linhas: {data.shape[0]} / Colunas: {data.shape[1]}
              ''')
         col1.write(script.analise(data=data, y='mau'))
@@ -66,10 +68,13 @@ def app():
         col2.write(
             f'''
              ##### Conjunto de dados não usados no treino/teste, apenas como validação:
+             **data_unseen:**
+
              Linhas: {data_unseen.shape[0]} / Colunas: {data_unseen.shape[1]}
              ''')
         col2.write(script.analise(data=data_unseen, y='mau'))
-
+        st.write(data)
     except:
+
         st.error('Suba um arquivo válido.', icon='⛔')
         st.error('Indísponível.', icon='⚠️')

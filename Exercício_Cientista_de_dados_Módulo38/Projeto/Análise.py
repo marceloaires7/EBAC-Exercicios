@@ -5,7 +5,6 @@ import pandas as pd
 import script
 from pycaret.classification import *
 
-
 def app():
     st.title(
         f'''
@@ -21,7 +20,9 @@ def app():
                     target='mau',
                     session_id=123,
                     numeric_imputation=-1,
-                    remove_outliers=True)
+                    remove_outliers=True,
+                    pca=True,
+                    ordinal=True)
         
         st.write(clf.dataset_transformed)
         

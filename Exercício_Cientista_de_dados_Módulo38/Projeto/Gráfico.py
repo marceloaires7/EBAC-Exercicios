@@ -67,25 +67,18 @@ def app():
                     ---
                     ## Descritiva bivariada (Qualitativa)''')
         
-        col1, col2, col3, col4 = st.columns([.4, 0.001, 1, 1.4])
+        col1, col2 = st.columns([1 , 1.3])
 
         UniQuali1 = col1.selectbox('**BIVARIADA 1:**', df.select_dtypes(include='object').columns, key='Bivariada1')
-        UniQuali2 = col1.selectbox('**BIVARIADA 2:**', df.select_dtypes(include='object').columns, key='Bivariada2')
+        UniQuali2 = col2.selectbox('**BIVARIADA 2:**', df.select_dtypes(include='object').columns, key='Bivariada2')
 
         for i in df.select_dtypes(include='object').columns:
             for j in df.select_dtypes(include='object').columns:
-                if i+j not in st.session_state['graficos']:
-                    st.session_state['graficos'][i+j] = script.graficoBivar(UniQuali1=i,
-                                                                            UniQuali2=j)
-                else:
-                    None
-        # fig, ax = plt.subplots(figsize=(5,4))
-        # ct = pd.crosstab(df[UniQuali1], df[UniQuali2])
-        # sns.heatmap(ct, annot=True, cmap="YlGnBu", fmt='d', linewidths=.5, linecolor='black')
-        # ax.set_title(f'Contagem da variável {UniQuali1} por {UniQuali2}', color='navy')  
-        # st.write(st.session_state['graficos'][UniQuali1+UniQuali2])
-        col3.pyplot(fig=st.session_state['graficos'][UniQuali1+UniQuali2][0])
-        col4.write(st.session_state['graficos'][UniQuali1+UniQuali2][1])
+                st.session_state['graficos'][i+j] = script.graficoBivar(UniQuali1=i,
+                                                                        UniQuali2=j)
+                    
+        col1.pyplot(fig=st.session_state['graficos'][UniQuali1+UniQuali2][0])
+        col2.write(st.session_state['graficos'][UniQuali1+UniQuali2][1])
         
     ##########################################################################################################
     # Descritiva bivariada (Quantitativa)
@@ -94,16 +87,18 @@ def app():
             ## Descritiva bivariada (Qualitativa)''')
 
         col1, col2 = st.columns([1, 1])
-        fig, ax = plt.subplots(figsize=(5,4))
+                
+        UniQuanti1 = col1.selectbox('**BIVARIADA 1:**', df.select_dtypes(exclude='object').columns, key='Bivariada3')
+        UniQuanti2 = col2.selectbox('**BIVARIADA 2:**', df.select_dtypes(exclude='object').columns, key='Bivariada4')
 
-        correlation_matrix = df.select_dtypes(include='number').corr()
+        for i in df.select_dtypes(exclude='object').columns:
+            for j in df.select_dtypes(exclude='object').columns:
+                st.session_state['graficos'][i+j] = script.graficoBivar2(UniQuanti1=i, UniQuanti2=j)
 
-        ax = sns.heatmap(correlation_matrix, annot=True, cmap='coolwarm')
-        ax.set_title("Heatmap")
+        col1.pyplot(fig=st.session_state['graficos'][UniQuanti1+UniQuanti2])
+        col2.write(pd.crosstab(index=df[UniQuanti1], columns=df[UniQuanti2]).sum())
 
-        col1.pyplot(plt)
-        col2.write(correlation_matrix)
     except ValueError as e:
-        # Handle the specific ValueError exception
+        st.write(e)
         st.error('Suba um arquivo válido.', icon='⛔')
         st.error('Indísponível.', icon='⚠️')
