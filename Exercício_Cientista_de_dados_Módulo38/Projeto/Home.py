@@ -73,7 +73,7 @@ def app():
              Linhas: {data_unseen.shape[0]} / Colunas: {data_unseen.shape[1]}
              ''')
         col2.write(script.analise(data=data_unseen, y='mau'))
-        st.write(data)
+        
     except:
 
         st.error('Suba um arquivo válido.', icon='⛔')

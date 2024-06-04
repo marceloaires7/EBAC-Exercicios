@@ -172,7 +172,7 @@ def print_metricas(dados, PD='PD', CLASSE_PRED='classe_predita', RESP='mau'):
 
 @st.cache_data
 def graficoQuali(uniQuali):
-    df = st.session_state['df'][0]
+    df = st.session_state['df'][0].copy()
 
     fig, ax = plt.subplots(figsize=(5,4))
     ax = sns.countplot(data=df.sort_values(by=uniQuali), x=uniQuali, hue=uniQuali, legend=False, palette="tab10")
@@ -181,6 +181,7 @@ def graficoQuali(uniQuali):
     ax.tick_params(axis='x', rotation=270, length=6, width=2, grid_color='r', grid_alpha=0.5)
     ax.set_title(f'Contagem da variável {ax.get_xlabel()}', color='navy')
     ax.set_ylim(ymax=ax.get_ylim()[1]*1.2)
+    
     for p in ax.patches:
         ax.annotate(f'{int(p.get_height())}', (p.get_x() + p.get_width() / 2., p.get_height()),
                 ha='left', va='baseline', fontsize=9, color='black', xytext=(0, 5),
@@ -211,7 +212,7 @@ def graficoQuanti(uniQuanti):
 
 @st.cache_data
 def graficoBivar(UniQuali1, UniQuali2):
-    df = st.session_state['df'][0]
+    df = st.session_state['df'][0].copy()
 
     fig, ax = plt.subplots(figsize=(5,4))
 
@@ -223,11 +224,16 @@ def graficoBivar(UniQuali1, UniQuali2):
 
 @st.cache_data
 def graficoBivar2(UniQuanti1, UniQuanti2):
-    df = st.session_state['df'][0]
+    df = st.session_state['df'][0].copy()
 
     fig, ax = plt.subplots(figsize=(5,4))
 
-    sns.scatterplot(data=df.reset_index(), x=df.reset_index()[UniQuanti1], y=df.reset_index()[UniQuanti2])
+    ax = sns.scatterplot(data=df.reset_index(), x=df.reset_index()[UniQuanti1], y=df.reset_index()[UniQuanti2])
     ax.set_title(f'Contagem da variável {UniQuanti1} por {UniQuanti2}', color='navy')  
     
-    return fig
+    df_cut = df.copy()
+    df_cut['idade'] = pd.qcut(df_cut['idade'], 5, precision=0, duplicates='drop')
+    df_cut['tempo_emprego'] = pd.qcut(df_cut['tempo_emprego'], 5, precision=0, duplicates='drop')
+    df_cut['renda'] = pd.qcut(df_cut['renda'], 5, precision=0, duplicates='drop')
+
+    return fig, df_cut.astype(str)

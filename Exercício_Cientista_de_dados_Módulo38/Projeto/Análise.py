@@ -21,11 +21,14 @@ def app():
                     session_id=123,
                     numeric_imputation=-1,
                     remove_outliers=True,
-                    pca=True,
-                    ordinal=True)
+                    pca=True)
         
-        st.write(clf.dataset_transformed)
-        
+        st.write('### Modelos utilizados no PyCaret:')
+
+        col1, col2, col3, col4 = st.columns(4)
+
+        col1.write(models().iloc[:9,[0,2]]) 
+        col2.write(models().iloc[9:,[0,2]])        
         
     except ValueError as e:
         st.error('Suba um arquivo válido.', icon='⛔')

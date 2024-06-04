@@ -69,8 +69,8 @@ def app():
         
         col1, col2 = st.columns([1 , 1.3])
 
-        UniQuali1 = col1.selectbox('**BIVARIADA 1:**', df.select_dtypes(include='object').columns, key='Bivariada1')
-        UniQuali2 = col2.selectbox('**BIVARIADA 2:**', df.select_dtypes(include='object').columns, key='Bivariada2')
+        UniQuali1 = col1.selectbox('**LINHA:**', df.select_dtypes(include='object').columns, key='Bivariada1')
+        UniQuali2 = col2.selectbox('**COLUNA:**', df.select_dtypes(include='object').columns, key='Bivariada2')
 
         for i in df.select_dtypes(include='object').columns:
             for j in df.select_dtypes(include='object').columns:
@@ -88,15 +88,18 @@ def app():
 
         col1, col2 = st.columns([1, 1])
                 
-        UniQuanti1 = col1.selectbox('**BIVARIADA 1:**', df.select_dtypes(exclude='object').columns, key='Bivariada3')
-        UniQuanti2 = col2.selectbox('**BIVARIADA 2:**', df.select_dtypes(exclude='object').columns, key='Bivariada4')
+        UniQuanti1 = col1.selectbox('**LINHA:**', df.select_dtypes(exclude='object').columns, key='Bivariada3')
+        UniQuanti2 = col2.selectbox('**COLUNA:**', df.select_dtypes(exclude='object').columns, key='Bivariada4')
 
         for i in df.select_dtypes(exclude='object').columns:
             for j in df.select_dtypes(exclude='object').columns:
-                st.session_state['graficos'][i+j] = script.graficoBivar2(UniQuanti1=i, UniQuanti2=j)
+                if i+j not in st.session_state['graficos']:
+                    st.session_state['graficos'][i+j] = script.graficoBivar2(UniQuanti1=i, UniQuanti2=j)
 
-        col1.pyplot(fig=st.session_state['graficos'][UniQuanti1+UniQuanti2])
-        col2.write(pd.crosstab(index=df[UniQuanti1], columns=df[UniQuanti2]).sum())
+        df_cut = st.session_state['graficos'][UniQuanti1+UniQuanti2][1]
+
+        col1.pyplot(fig=st.session_state['graficos'][UniQuanti1+UniQuanti2][0])
+        col2.write(pd.crosstab(index=df_cut[UniQuanti1], columns=df_cut[UniQuanti2]))
 
     except ValueError as e:
         st.write(e)
