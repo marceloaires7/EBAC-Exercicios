@@ -241,22 +241,14 @@ def graficoBivar2(UniQuanti1, UniQuanti2):
 
 @st.cache_data
 def createmodel(estimator, fold):
-
-    if 'pullMod' not in st.session_state:
-        st.session_state['pullMod'] = ''
     
-    col1, col2 = st.columns(2)
     modelo = create_model(estimator=estimator, fold=fold)
-    st.session_state['pullMod'] = pull()
-    return modelo
+    pullMod = pull()
+    return modelo, pullMod
 
 @st.cache_data
 def tunemodel(_estimator, fold, optimize):
-
-    if 'pullTuned' not in st.session_state:
-        st.session_state['pullTuned'] = ''
     
-    col1, col2 = st.columns(2)
     modelo = tune_model(estimator=_estimator, fold=fold, optimize=optimize)
-    st.session_state['pullTuned'] = pull()
-    return modelo
+    pullTuned = pull()
+    return modelo, pullTuned

@@ -6,6 +6,10 @@ import script
 
 def app():
 
+    ##################################
+    ## Título e descrição da página ##
+    ##################################
+
     st.title(
         f'''
         📊 :blue[GRÁFICOS]
@@ -14,14 +18,19 @@ def app():
 
     try:
 
+    #########################################
+    ## Definindo DataFrame 'df' na página. ##
+    #########################################
+
         df = st.session_state['df'][0]
+
+    ################################################
+    ## Descritiva básica univariada (Qualitativa) ##
+    ################################################
 
         st.write('## Descritiva básica univariada (Qualitativa e Quantitativa)')
 
         col1, col2, col3, col4 = st.columns([1, .5, 1, .5])
-
-    ##########################################################################################################
-    # QUALITATIVA
 
         uniQuali = col1.selectbox('**QUALITATIVA:**', df.select_dtypes(include='object').columns, key='Qualitativa')
 
@@ -41,8 +50,9 @@ def app():
                             .sort_index()
                             .index.astype(str)))
 
-    ##########################################################################################################
-    # QUANTITATIVA
+    #################################################
+    ## Descritiva básica univariada (Quantitativa) ##
+    #################################################
 
         uniQuanti = col3.selectbox('**QUANTITATIVA:**', df.select_dtypes(exclude='object').columns, key='Quantitativa')
         
@@ -60,8 +70,9 @@ def app():
                                     .sort_index()
                                     .index.astype(str)))
         
-    ##########################################################################################################
-    # Descritiva bivariada (Qualitativa)
+    ########################################
+    ## Descritiva bivariada (Qualitativa) ##
+    ########################################
 
         st.markdown('''
                     ---
@@ -74,17 +85,19 @@ def app():
 
         for i in df.select_dtypes(include='object').columns:
             for j in df.select_dtypes(include='object').columns:
-                st.session_state['graficos'][i+j] = script.graficoBivar(UniQuali1=i,
-                                                                        UniQuali2=j)
+                if i+j not in st.session_state['graficos']:
+                   st.session_state['graficos'][i+j] = script.graficoBivar(UniQuali1=i, UniQuali2=j)
                     
         col1.pyplot(fig=st.session_state['graficos'][UniQuali1+UniQuali2][0])
         col2.write(st.session_state['graficos'][UniQuali1+UniQuali2][1])
         
-    ##########################################################################################################
-    # Descritiva bivariada (Quantitativa)
+    #########################################
+    ## Descritiva bivariada (Quantitativa) ##
+    #########################################
+
         st.markdown('''
-            ---
-            ## Descritiva bivariada (Qualitativa)''')
+                    ---
+                    ## Descritiva bivariada (Quantitativa)''')
 
         col1, col2 = st.columns([1, 1])
                 
@@ -101,7 +114,6 @@ def app():
         col1.pyplot(fig=st.session_state['graficos'][UniQuanti1+UniQuanti2][0])
         col2.write(pd.crosstab(index=df_cut[UniQuanti1], columns=df_cut[UniQuanti2]))
 
-    except ValueError as e:
-        st.write(e)
+    except:
         st.error('Suba um arquivo válido.', icon='⛔')
         st.error('Indísponível.', icon='⚠️')
