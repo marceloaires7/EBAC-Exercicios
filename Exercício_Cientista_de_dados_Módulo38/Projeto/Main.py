@@ -19,7 +19,7 @@ st.set_page_config(page_title='Projeto Final',
 st.markdown('<style>div.block-container{padding-top:3rem;}</style>', unsafe_allow_html=True)
 
 st.sidebar.image(image='https://afubesp.org.br/wp-content/uploads/2022/07/logo_ebac-960x640.png',
-                 caption='Aluno: Marcelo Aires Coelho Otsuki (Cientista de Dados)')
+                 caption='Aluno EBAC: Marcelo Aires Coelho Otsuki (Cientista de Dados)')
 
 ################################
 ## Definindo a class Multiapp ##

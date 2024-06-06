@@ -223,7 +223,7 @@ def graficoBivar(UniQuali1, UniQuali2):
 
 @st.cache_data
 def graficoBivar2(UniQuanti1, UniQuanti2):
-    df = st.session_state['df'][0].copy()
+    df = st.session_state['df'][0].copy().fillna({'tempo_emprego': -1})
 
     fig, ax = plt.subplots(figsize=(5,4))
 
