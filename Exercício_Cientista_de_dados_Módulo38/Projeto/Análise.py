@@ -28,8 +28,10 @@ def app():
         if 'pullTuned' not in st.session_state:
             st.session_state['pullTuned'] = {}
 
-        data = st.session_state['data'].sample(5000, random_state=42)
+        data = st.session_state['data'][['renda', 'qtd_filhos', 'posse_de_veiculo', 'posse_de_imovel', 'estado_civil', 'sexo', 'tempo_emprego', 'mau']].sample(50000, random_state=42)
         data_unseen = st.session_state['data_unseen']
+
+        st.write(data)
 
         st.cache
         clf = setup(data=data.reset_index(drop=True),
@@ -37,6 +39,7 @@ def app():
                     session_id=123,
                     numeric_imputation=-1,
                     remove_outliers=True,
+                    normalize=True,
                     fix_imbalance=True)        
 
         st.write('### Configuração do modelo criado no PyCaret:')
@@ -67,30 +70,34 @@ def app():
         col1.write(st.session_state['pullMod'].style.apply(lambda row: ['background-color: yellow'] * len(row) if row.name == 'Mean' else [''] * len(row), axis=1))
 
         col2.write('### CrossValidation dos modelos tunados do comando:')
-        col2.code("tuned_lightgbm = tunemodel(lightgbm, optimize='AUC')", language='python')
+        col2.code("tuned_lightgbm = tunemodel(lightgbm, optimize='AUC', fold=5)", language='python')
 
-        tuned_lightgbm = script.tunemodel(_estimator=lightgbm[0], fold=5, optimize='AUC')
+        tuned_lightgbm = script.tunemodel(_estimator=lightgbm[0], fold=5, optimize='Accuracy')
         st.session_state['pullTuned'] = tuned_lightgbm[1]
         col2.write(st.session_state['pullTuned'].style.apply(lambda row: ['background-color: yellow'] * len(row) if row.name == 'Mean' else [''] * len(row), axis=1))
         
         col1, col2 = st.columns(2)
        
         fig, ax = plt.subplots(figsize=(5,4))
-        
+        col1.write('### CURVA ROC:')
         col1.image(plot_model(tuned_lightgbm[0], plot = 'auc', save='./output'), width=550)
+        col2.write('### ESTATÍSTICAS DO KS:')
         col2.image(plot_model(tuned_lightgbm[0], plot = 'ks', save='./output'), width=600)
         
         col1, col2 = st.columns(2)
        
         fig, ax = plt.subplots(figsize=(5,4))
         
+        col1.write('### CURVA PRECISION-RECALL:')
         col1.image(plot_model(tuned_lightgbm[0], plot = 'pr', save='./output'), width=550)
+        col2.write('### FEATURE IMPORTANCE:')
         col2.image(plot_model(tuned_lightgbm[0], plot = 'feature', save='./output'), width=600)
         
         col1, col2 = st.columns(2)
        
         fig, ax = plt.subplots(figsize=(5,4))
         
+        col1.write('### CONFUSION MATRIX:')
         col1.image(plot_model(tuned_lightgbm[0], plot = 'confusion_matrix', save='./output'), width=550)
 
         st.write(predict_model(tuned_lightgbm[0]))
