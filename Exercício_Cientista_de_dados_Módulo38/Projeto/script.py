@@ -42,9 +42,7 @@ def analise(data, y):
                             'contagem': data.count(),
                             'missing': data.isna().sum(),
                             'nunique': data.nunique(),
-                            'papel': 'covariavel'})
-    
-    analise.loc[analise.index == y, 'papel'] = 'resposta'
+                            'papel': ['Resposta' if i == 'mau' else 'Covariavel' for i in data.dtypes.index]})
 
     return (analise.rename_axis('Variáveis')
                    .sort_values(by=['papel', 'nunique'],

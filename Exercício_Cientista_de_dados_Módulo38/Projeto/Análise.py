@@ -5,9 +5,15 @@ import pandas as pd
 import script
 from pycaret.classification import *
 
+####################################
+## Aplicativo da página 'Análise' ##
+####################################
+
 def app():
 
-##################
+############################################
+## Título e descrição da página 'Análise' ##
+############################################
 
     st.title(
         f'''
@@ -17,12 +23,12 @@ def app():
     try:
         
         if 'pullMod' not in st.session_state:
-            st.session_state['pullMod'] = ''
+            st.session_state['pullMod'] = {}
     
         if 'pullTuned' not in st.session_state:
-            st.session_state['pullTuned'] = ''
+            st.session_state['pullTuned'] = {}
 
-        data = st.session_state['data']
+        data = st.session_state['data'].sample(5000, random_state=42)
         data_unseen = st.session_state['data_unseen']
 
         st.cache
@@ -71,23 +77,28 @@ def app():
        
         fig, ax = plt.subplots(figsize=(5,4))
         
-        col1.image(plot_model(tuned_lightgbm[0], plot = 'auc', save=True), width=550)
-        col2.image(plot_model(tuned_lightgbm[0], plot = 'ks', save=True), width=600)
+        col1.image(plot_model(tuned_lightgbm[0], plot = 'auc', save='./output'), width=550)
+        col2.image(plot_model(tuned_lightgbm[0], plot = 'ks', save='./output'), width=600)
         
         col1, col2 = st.columns(2)
        
         fig, ax = plt.subplots(figsize=(5,4))
         
-        col1.image(plot_model(tuned_lightgbm[0], plot = 'pr', save=True), width=550)
-        col2.image(plot_model(tuned_lightgbm[0], plot = 'feature', save=True), width=600)
+        col1.image(plot_model(tuned_lightgbm[0], plot = 'pr', save='./output'), width=550)
+        col2.image(plot_model(tuned_lightgbm[0], plot = 'feature', save='./output'), width=600)
         
         col1, col2 = st.columns(2)
        
         fig, ax = plt.subplots(figsize=(5,4))
         
-        col1.image(plot_model(tuned_lightgbm[0], plot = 'confusion_matrix', save=True), width=550)
+        col1.image(plot_model(tuned_lightgbm[0], plot = 'confusion_matrix', save='./output'), width=550)
 
         st.write(predict_model(tuned_lightgbm[0]))
+        st.write(tuned_lightgbm)
+
+############
+## except ##
+############
 
     except ValueError as e:
         st.error('Suba um arquivo válido.', icon='⛔')

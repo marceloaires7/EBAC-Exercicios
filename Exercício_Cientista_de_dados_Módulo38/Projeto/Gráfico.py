@@ -4,11 +4,15 @@ import seaborn as sns
 import pandas as pd
 import script
 
+####################################
+## Aplicativo da página 'Gráfico' ##
+####################################
+
 def app():
 
-    ##################################
-    ## Título e descrição da página ##
-    ##################################
+############################################
+## Título e descrição da página 'Gráfico' ##
+############################################
 
     st.title(
         f'''
@@ -18,15 +22,15 @@ def app():
 
     try:
 
-    #########################################
-    ## Definindo DataFrame 'df' na página. ##
-    #########################################
+#########################################
+## Definindo DataFrame 'df' na página. ##
+#########################################
 
         df = st.session_state['df'][0]
 
-    ################################################
-    ## Descritiva básica univariada (Qualitativa) ##
-    ################################################
+################################################
+## Descritiva básica univariada (Qualitativa) ##
+################################################
 
         st.write('## Descritiva básica univariada (Qualitativa e Quantitativa)')
 
@@ -50,9 +54,9 @@ def app():
                             .sort_index()
                             .index.astype(str)))
 
-    #################################################
-    ## Descritiva básica univariada (Quantitativa) ##
-    #################################################
+#################################################
+## Descritiva básica univariada (Quantitativa) ##
+#################################################
 
         uniQuanti = col3.selectbox('**QUANTITATIVA:**', df.select_dtypes(exclude='object').columns, key='Quantitativa')
         
@@ -70,9 +74,9 @@ def app():
                                     .sort_index()
                                     .index.astype(str)))
         
-    ########################################
-    ## Descritiva bivariada (Qualitativa) ##
-    ########################################
+########################################
+## Descritiva bivariada (Qualitativa) ##
+########################################
 
         st.markdown('''
                     ---
@@ -91,9 +95,9 @@ def app():
         col1.pyplot(fig=st.session_state['graficos'][UniQuali1+UniQuali2][0])
         col2.write(st.session_state['graficos'][UniQuali1+UniQuali2][1])
         
-    #########################################
-    ## Descritiva bivariada (Quantitativa) ##
-    #########################################
+#########################################
+## Descritiva bivariada (Quantitativa) ##
+#########################################
 
         st.markdown('''
                     ---
@@ -113,6 +117,10 @@ def app():
 
         col1.pyplot(fig=st.session_state['graficos'][UniQuanti1+UniQuanti2][0])
         col2.write(pd.crosstab(index=df_cut[UniQuanti1], columns=df_cut[UniQuanti2]))
+        
+############
+## except ##
+############
 
     except:
         st.error('Suba um arquivo válido.', icon='⛔')
