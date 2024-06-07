@@ -17,6 +17,17 @@ def app():
     st.title(
         f'''
         📊 :blue[GRÁFICOS]
+
+        Os gráficos apresentados permitem identificar padrões, tendências e anomalias de maneira intuitiva, transformando dados complexos em insights valiosos.
+
+        Exploramos quatro categorias principais:
+
+        - Descritiva Básica Univariada (Qualitativa)
+        - Descritiva Básica Univariada (Quantitativa)
+        - Descritiva Bivariada (Qualitativa)
+        - Descritiva Bivariada (Quantitativa)
+        
+        Utilize esta página para uma análise detalhada e informada dos seus dados.
         ---
         ''')
 
