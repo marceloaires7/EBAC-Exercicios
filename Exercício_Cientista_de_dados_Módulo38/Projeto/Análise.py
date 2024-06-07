@@ -21,6 +21,10 @@ def app():
         ---
         ''')
     try:
+
+###########################################################
+## Definindo as variaveis alojadas no 'st.session_state' ##
+###########################################################
         
         if 'pullMod' not in st.session_state:
             st.session_state['pullMod'] = {}
@@ -31,9 +35,10 @@ def app():
         data = st.session_state['data'][['renda', 'qtd_filhos', 'posse_de_veiculo', 'posse_de_imovel', 'estado_civil', 'sexo', 'tempo_emprego', 'mau']].sample(50000, random_state=42)
         data_unseen = st.session_state['data_unseen']
 
-        st.write(data)
+#################################################
+## Configurando o Modelo com o Pycaret (setup) ##
+#################################################
 
-        st.cache
         clf = setup(data=data.reset_index(drop=True),
                     target='mau',
                     session_id=123,
@@ -61,6 +66,10 @@ def app():
         col1.write(models().iloc[:9,[0,2]]) 
         col2.write(models().iloc[9:,[0,2]])        
         
+##############################################################################
+## Configurando o Modelo com 'create_model' utilizando estimator='lightgbm' ##
+##############################################################################
+        
         col1, col2 = st.columns(2)
         col1.write('### CrossValidation dos modelos criados do comando:')
         col1.code("lightgbm = createmodel(estimator='lightgbm', fold=5)", language='python')
@@ -69,6 +78,10 @@ def app():
         st.session_state['pullMod'] = lightgbm[1]
         col1.write(st.session_state['pullMod'].style.apply(lambda row: ['background-color: yellow'] * len(row) if row.name == 'Mean' else [''] * len(row), axis=1))
 
+#######################################################################
+## Tunando o Modelo com 'tune_model' utilizando estimator='lightgbm' ##
+#######################################################################
+
         col2.write('### CrossValidation dos modelos tunados do comando:')
         col2.code("tuned_lightgbm = tunemodel(lightgbm, optimize='AUC', fold=5)", language='python')
 
@@ -76,6 +89,10 @@ def app():
         st.session_state['pullTuned'] = tuned_lightgbm[1]
         col2.write(st.session_state['pullTuned'].style.apply(lambda row: ['background-color: yellow'] * len(row) if row.name == 'Mean' else [''] * len(row), axis=1))
         
+############################################
+## Plotando gráficos gerados pelo PyCaret ##
+############################################
+
         col1, col2 = st.columns(2)
        
         fig, ax = plt.subplots(figsize=(5,4))
@@ -100,6 +117,10 @@ def app():
         col1.write('### CONFUSION MATRIX:')
         col1.image(plot_model(tuned_lightgbm[0], plot = 'confusion_matrix', save='./output'), width=550)
 
+##################
+## Modelo Final ##
+##################
+    
         st.write(predict_model(tuned_lightgbm[0]))
         st.write(tuned_lightgbm)
 
