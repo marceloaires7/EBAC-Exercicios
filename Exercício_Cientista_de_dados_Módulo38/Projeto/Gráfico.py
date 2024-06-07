@@ -14,22 +14,20 @@ def app():
 ## Título e descrição da página 'Gráfico' ##
 ############################################
 
-    st.title(
-        f'''
-        📊 :blue[GRÁFICOS]
+    st.title('📊 :blue[GRÁFICOS]')
 
-        Os gráficos apresentados permitem identificar padrões, tendências e anomalias de maneira intuitiva, transformando dados complexos em insights valiosos.
+    st.write('''Os gráficos apresentados permitem identificar padrões, tendências e anomalias de maneira intuitiva, transformando dados complexos em insights valiosos.
 
-        Exploramos quatro categorias principais:
+Exploramos quatro categorias principais:
+- Descritiva Básica Univariada (Qualitativa)
+- Descritiva Básica Univariada (Quantitativa)
+- Descritiva Bivariada (Qualitativa)
+- Descritiva Bivariada (Quantitativa)
 
-        - Descritiva Básica Univariada (Qualitativa)
-        - Descritiva Básica Univariada (Quantitativa)
-        - Descritiva Bivariada (Qualitativa)
-        - Descritiva Bivariada (Quantitativa)
-        
-        Utilize esta página para uma análise detalhada e informada dos seus dados.
-        ---
-        ''')
+Utilize esta página para uma análise detalhada e informada dos seus dados.
+
+---
+''')
 
     try:
 
@@ -43,7 +41,7 @@ def app():
 ## Descritiva básica univariada (Qualitativa) ##
 ################################################
 
-        st.write('## Descritiva básica univariada (Qualitativa e Quantitativa)')
+        st.write('### Descritiva básica univariada (Qualitativa e Quantitativa)')
 
         col1, col2, col3, col4 = st.columns([1, .5, 1, .5])
 
@@ -91,7 +89,7 @@ def app():
 
         st.markdown('''
                     ---
-                    ## Descritiva bivariada (Qualitativa)''')
+                    ### Descritiva bivariada (Qualitativa)''')
         
         col1, col2 = st.columns([1 , 1.3])
 
@@ -112,7 +110,7 @@ def app():
 
         st.markdown('''
                     ---
-                    ## Descritiva bivariada (Quantitativa)''')
+                    ### Descritiva bivariada (Quantitativa)''')
 
         col1, col2 = st.columns([1, 1])
                 

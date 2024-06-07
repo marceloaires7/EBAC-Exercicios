@@ -10,16 +10,31 @@ from pycaret.classification import *
 ####################################
 
 def app():
-
+    
 ############################################
 ## Título e descrição da página 'Análise' ##
 ############################################
 
-    st.title(
-        f'''
-        📐 :red[ANÁLISE]
-        ---
-        ''')
+    st.title('📐 :red[ANÁLISE]')
+    
+    st.write('Aqui, conduzimos a modelagem e análise de dados utilizando PyCaret. Seguimos uma sequência clara para criar e otimizar modelos preditivos:')
+    
+    col1, col2 = st.columns(2)
+
+    col1.write('''- **Busca das Variáveis:** Preparamos os datasets.
+- **Configuração com setup():** Definimos o ambiente de modelagem.
+- **Criação com create_model():** Construímos o modelo inicial com LightGBM.
+- **Ajuste com tune_model():** Otimizamos o modelo.''')
+
+    col2.write('''- **Visualização com plot_model():** Apresentamos gráficos de desempenho.
+- **Finalização com finalize_model():** Consolidamos o modelo.
+- **Salvamento com save_model():** Armazenamos o modelo final.
+- **Previsões com predict_model():** Fazemos previsões em novos dados.''')
+           
+    st.write('''Explore esta página para entender e aplicar cada etapa do processo de modelagem.
+
+--- ''')
+
     try:
 
 ###########################################################
@@ -63,8 +78,10 @@ def app():
 
         col1, col2, col3, col4 = st.columns(4)
 
-        col1.write(models().iloc[:9,[0,2]]) 
-        col2.write(models().iloc[9:,[0,2]])        
+        col1.write(models().iloc[:5,[0,2]]) 
+        col2.write(models().iloc[5:10,[0,2]])        
+        col3.write(models().iloc[10:15,[0,2]]) 
+        col4.write(models().iloc[15:,[0,2]])
         
 ##############################################################################
 ## Configurando o Modelo com 'create_model' utilizando estimator='lightgbm' ##
@@ -74,20 +91,20 @@ def app():
         col1.write('### CrossValidation dos modelos criados do comando:')
         col1.code("lightgbm = createmodel(estimator='lightgbm', fold=5)", language='python')
 
-        lightgbm = script.createmodel(estimator='lightgbm', fold=5)
-        st.session_state['pullMod'] = lightgbm[1]
-        col1.write(st.session_state['pullMod'].style.apply(lambda row: ['background-color: yellow'] * len(row) if row.name == 'Mean' else [''] * len(row), axis=1))
+        lightgbm = create_model(estimator='lightgbm', fold=5)
+        # st.session_state['pullMod'] = lightgbm[1]
+        col1.write(pull().style.apply(lambda row: ['background-color: yellow'] * len(row) if row.name == 'Mean' else [''] * len(row), axis=1))
 
 #######################################################################
 ## Tunando o Modelo com 'tune_model' utilizando estimator='lightgbm' ##
 #######################################################################
 
         col2.write('### CrossValidation dos modelos tunados do comando:')
-        col2.code("tuned_lightgbm = tunemodel(lightgbm, optimize='AUC', fold=5)", language='python')
+        col2.code("tuned_lightgbm = tunemodel(lightgbm, optimize='Accuracy', fold=5)", language='python')
 
-        tuned_lightgbm = script.tunemodel(_estimator=lightgbm[0], fold=5, optimize='Accuracy')
-        st.session_state['pullTuned'] = tuned_lightgbm[1]
-        col2.write(st.session_state['pullTuned'].style.apply(lambda row: ['background-color: yellow'] * len(row) if row.name == 'Mean' else [''] * len(row), axis=1))
+        tuned_lightgbm = tune_model(estimator=lightgbm, fold=5, optimize='Accuracy')
+        # st.session_state['pullTuned'] = tuned_lightgbm[1]
+        col2.write(pull().style.apply(lambda row: ['background-color: yellow'] * len(row) if row.name == 'Mean' else [''] * len(row), axis=1))
         
 ############################################
 ## Plotando gráficos gerados pelo PyCaret ##
@@ -97,32 +114,35 @@ def app():
        
         fig, ax = plt.subplots(figsize=(5,4))
         col1.write('### CURVA ROC:')
-        col1.image(plot_model(tuned_lightgbm[0], plot = 'auc', save='./output'), width=550)
+        col1.image(plot_model(tuned_lightgbm, plot = 'auc', save='./output'), width=550)
         col2.write('### ESTATÍSTICAS DO KS:')
-        col2.image(plot_model(tuned_lightgbm[0], plot = 'ks', save='./output'), width=600)
+        col2.image(plot_model(tuned_lightgbm, plot = 'ks', save='./output'), width=600)
         
         col1, col2 = st.columns(2)
        
         fig, ax = plt.subplots(figsize=(5,4))
         
         col1.write('### CURVA PRECISION-RECALL:')
-        col1.image(plot_model(tuned_lightgbm[0], plot = 'pr', save='./output'), width=550)
+        col1.image(plot_model(tuned_lightgbm, plot = 'pr', save='./output'), width=550)
         col2.write('### FEATURE IMPORTANCE:')
-        col2.image(plot_model(tuned_lightgbm[0], plot = 'feature', save='./output'), width=600)
+        col2.image(plot_model(tuned_lightgbm, plot = 'feature', save='./output'), width=600)
         
         col1, col2 = st.columns(2)
        
         fig, ax = plt.subplots(figsize=(5,4))
         
         col1.write('### CONFUSION MATRIX:')
-        col1.image(plot_model(tuned_lightgbm[0], plot = 'confusion_matrix', save='./output'), width=550)
+        col1.image(plot_model(tuned_lightgbm, plot = 'confusion_matrix', save='./output'), width=550)
 
 ##################
 ## Modelo Final ##
 ##################
-    
-        st.write(predict_model(tuned_lightgbm[0]))
-        st.write(tuned_lightgbm)
+        final_lightgbm = finalize_model(tuned_lightgbm)
+
+        st.write(predict_model(tuned_lightgbm))
+
+        roc_plot = plot_model(final_lightgbm, plot='auc', save='./output')
+        st.image(roc_plot)
 
 ############
 ## except ##
