@@ -65,6 +65,7 @@ def app():
         col5.pyplot(fig, use_container_width=False)
 
         st.write('### Separação do Dataset:')
+
         col1, col2 = st.columns([1,1])
 
         col1.write(
@@ -90,6 +91,5 @@ def app():
 ############
         
     except:
-        
         st.error('Suba um arquivo válido.', icon='⛔')
         st.error('Indísponível.', icon='⚠️')

@@ -10,7 +10,7 @@ df = pd.read_feather('.\input\credit_scoring.ftr')
 df.drop(columns=['index', 'data_ref'], inplace=True)
 data = df.sample(50000, random_state=123)
 data_unseen = df.drop(data.index)
-data
+
 # %%
 
 clf = setup(data=data,
@@ -21,9 +21,7 @@ clf = setup(data=data,
             pca_method='linear',
             normalize=True,
             normalize_method='robust',
-            remove_outliers=True,
-            fix_imbalance=True,
-            fix_imbalance_method='TomekLinks')
+            remove_outliers=True)
 # %%
 
 lightgbm = create_model(estimator='lightgbm', fold=5)
@@ -46,7 +44,11 @@ final_lightgbm = finalize_model(tuned_lightgbm)
 
 # %%
 
-evaluate_model(final_lightgbm)
+plot_model(final_lightgbm, plot='auc')
+
+# %%
+
+plot_model(estimator=final_lightgbm, plot='confusion_matrix')
 
 # %%
 
@@ -55,5 +57,15 @@ new_prediction
 
 # %%
 
-pd.crosstab(new_prediction['mau'], new_prediction['prediction_label'])
+pred = pd.crosstab(new_prediction['mau'], new_prediction['prediction_label'])
+pred['Diff'] = pred.diff(axis=1).iloc[:,1]
+pred = pd.concat([pred, pred.diff().dropna().rename({True: 'Diff'})])
+pred
+# %%
+
+pred_proba = pd.crosstab(new_prediction['mau'], new_prediction['prediction_label'], normalize=True)
+pred_proba['Diff'] = pred_proba.diff(axis=1).iloc[:,1]
+pred_proba = pd.concat([pred_proba, pred_proba.diff().dropna().rename({True: 'Diff'})]).style.format('{:.2%}')
+pred_proba
+
 # %%

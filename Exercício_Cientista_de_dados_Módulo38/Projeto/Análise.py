@@ -37,9 +37,9 @@ def app():
 
     try:
 
-###########################################################
-## Definindo as variaveis alojadas no 'st.session_state' ##
-###########################################################
+##########################################################
+# Definindo as variaveis alojadas no 'st.session_state' ##
+##########################################################
         
         if 'pullMod' not in st.session_state:
             st.session_state['pullMod'] = {}
@@ -54,13 +54,17 @@ def app():
 ## Configurando o Modelo com o Pycaret (setup) ##
 #################################################
 
-        clf = setup(data=data.reset_index(drop=True),
+        clf = setup(data=data,
                     target='mau',
                     session_id=123,
                     numeric_imputation=-1,
-                    remove_outliers=True,
                     pca=True,
-                    fix_imbalance=True)        
+                    pca_method='linear',
+                    normalize=True,
+                    normalize_method='robust',
+                    remove_outliers=True,
+                    fix_imbalance=True,
+                    fix_imbalance_method='TomekLinks')
 
         st.write('### Configuração do modelo criado no PyCaret:')
         
@@ -145,9 +149,9 @@ def app():
         st.image(roc_plot)
         st.write(evaluate_model(estimator=final_lightgbm, fold=5))
 
-############
-## except ##
-############
+###########
+# except ##
+###########
 
     except ValueError as e:
         st.error('Suba um arquivo válido.', icon='⛔')

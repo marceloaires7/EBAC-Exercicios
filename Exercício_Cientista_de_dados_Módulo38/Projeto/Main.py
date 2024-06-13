@@ -88,18 +88,15 @@ class Multiapp:
             if st.session_state['upload'] is None:
                 df = st.session_state['df'][0]
                 file_name = st.session_state['df'][1]
+                data = st.session_state['data']
+                data_unseen = st.session_state['data_unseen']
             else:
                 df = script.load_data(st.session_state['upload'])
                 file_name = st.session_state.get('upload').name
                 st.session_state['df'] = df, file_name
+                st.session_state['data'] = df.sample(50000, random_state=123).reset_index(drop=True)
+                st.session_state['data_unseen'] = df.reset_index().drop(index=st.session_state['data'].index, columns='data_ref').reset_index(drop=True)
 
-            data = df.reset_index().sample(frac=.95, random_state=42)
-            data_unseen = df.reset_index().drop(data.index)
-            data.set_index(keys='data_ref', inplace=True)
-            data_unseen.set_index(keys='data_ref', inplace=True)
-
-            st.session_state['data'] = data
-            st.session_state['data_unseen'] = data_unseen
 
             st.sidebar.success(f'Arquivo "{file_name}" carregado.', icon='✅')
 
@@ -108,6 +105,7 @@ class Multiapp:
 ############
 
         except:
+
             st.sidebar.error('Suba um arquivo válido.', icon='⛔')
 
 ##################
@@ -116,8 +114,10 @@ class Multiapp:
             
         if app == "Home":
             Home.app()
+
         if app == "Gráficos":
             Gráfico.app()    
+
         if app == "Modelagem/Análise":
             Análise.app()
     
