@@ -12,4 +12,4 @@ O objetivo será construir o melhor modelo preditivo, utilizando o Pycaret, para
 
 ---
 
-https://github.com/marceloaires7/EBAC-Exercicios/blob/main/Exerc%C3%ADcio_Cientista_de_dados_M%C3%B3dulo38/Projeto/output/streamlit-Main-2024-06-14-19-06-64.mov
+https://github.com/marceloaires7/EBAC-Exercicios/blob/fc69c70c84e0be975d7b65d0d485b1c8aedea809/Exerc%C3%ADcio_Cientista_de_dados_M%C3%B3dulo38/Projeto/output/streamlit-Main-2024-06-14-19-06-64.mov
