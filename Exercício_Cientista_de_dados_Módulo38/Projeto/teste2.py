@@ -8,8 +8,8 @@ from pycaret.classification import *
 
 df = pd.read_feather('.\input\credit_scoring.ftr')
 df.drop(columns=['index', 'data_ref'], inplace=True)
-data = df.sample(50000, random_state=123)
-data_unseen = df.drop(data.index)
+data = df.reset_index(drop=True)
+data_unseen = df.drop(index=data.index).reset_index(drop=True)
 
 # %%
 

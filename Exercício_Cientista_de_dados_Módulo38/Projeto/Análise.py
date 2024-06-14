@@ -114,6 +114,7 @@ def app():
 ##################
         st.write('### Finalização com finalize_model():')
         st.code('final_lightgbm = finalize_model(tuned_lightgbm)', language='python')
+        st.write('#### Pipeline do modulo finalizado:')
         final_lightgbm = finalize_model(tuned_lightgbm[0])
         st.write(final_lightgbm)
         
@@ -157,7 +158,6 @@ def app():
 ####################################
 ## Previsões com predict_model(): ##
 ####################################
-        col1, col2 = st.columns(2)
 
         st.write('### Previsões com predict_model():')
 
@@ -167,9 +167,21 @@ def app():
         st.code("new_prediction = predict_model(saved_lightgbm, data=data_unseen)")
         new_prediction = predict_model(saved_lightgbm, data=data_unseen)
 
+        col1, col2 = st.columns(2)
         fig, ax = plt.subplots(figsize=(5,4))
         ct = pd.crosstab(new_prediction['mau'], new_prediction['prediction_label'])
-        ax = sns.heatmap(ct, annot=True, cmap="YlGnBu", fmt='d', linewidths=.5, linecolor='black', xticklabels=new_prediction['prediction_label'].map({0: 'Bom', 1: 'Mau'}).unique())
+        ax = sns.heatmap(ct,
+                         annot=True,
+                         cmap="YlGnBu",
+                         fmt='d',
+                         linewidths=.5,
+                         linecolor='black',
+                         xticklabels=new_prediction['prediction_label'].map({0: 'Bom', 1: 'Mau'}).unique(),
+                         yticklabels=new_prediction['mau'].map({True: 'Mau', False: 'Bom'}).unique())
+        ax.set_title("CONFUSION MATRIX")
+        ax.set_xlabel('PREDICTED VALUE')
+        ax.set_ylabel('TARGET')
+
         col1.pyplot(fig)
                 
 ############
