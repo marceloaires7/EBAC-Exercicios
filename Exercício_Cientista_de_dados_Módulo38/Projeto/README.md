@@ -1,15 +1,15 @@
 # EBAC-Aulas
 
 
-# Projeto 2 - Previsão de Renda
+# Projeto Final - Previsão de Renda
 
 
-A análise para a concessão de cartões de crédito é um assunto de extrema importância no setor financeiro. Para que o limite de crédito seja liberado, o banco ou algum outro tipo de industria financeira, utilizam informações pessoais e dados fornecidos pelos candidatos para prever a probabilidade de inadimplência futura e comportamento de endividamento com o cartão.
+A análise para a concessão de cartões de crédito é um assunto de extrema importância no setor financeiro. Para que o limite de crédito seja liberado, o banco ou algum outro tipo de industria financeira, utilizam informações pessoais e dados fornecidos pelos candidato para prever a probabilidade de inadimplência futura e comportamento de endividamento com o cartão.
 
-Vamos utlizar desses dados fornecidos em um desafio do site [Kaggle](https://www.kaggle.com/), uma plataforma que promove desafios de ciência de dados, oferecendo prêmios em dinheiro para os melhores colocados. O link original está [aqui](https://www.kaggle.com/rikdifos/credit-card-approval-prediction).
+Vamos utlizar dados parecidos com o que encontramos no desafio do site [Kaggle](https://www.kaggle.com/), uma plataforma que promove desafios de ciência de dados, oferecendo prêmios em dinheiro para os melhores colocados. O link original está [aqui](https://www.kaggle.com/rikdifos/credit-card-approval-prediction). Porém utilizaremos dados fornecidos pela própria EBAC, em que há informações complementares em Português e com maior número de informações.
 
-O objetivo será construir o melhor modelo preditivo para identificar o risco de inadimplência, será definido como inadimplência atraso de pagamento de maior ou igual a 90 dias em um período de 12 meses. Sendo que essa apresentação será para auxiliar o cliente, ou seja, para a pessoa que busca o emprestimo no banco, para que ela avalie suas próprias decisões.
+O objetivo será construir o melhor modelo preditivo, utilizando o Pycaret, para identificar o perfil de renda do cliente, e dizer se esse cliente é um potencial cliente inadimplente, considerado na variável respota como "mau" == True.
 
 ---
 
-https://github.com/marceloaires7/EBAC-Aulas/assets/54866313/9e738821-4730-493e-8d80-30d33b8fe6a1
+https://github.com/marceloaires7/EBAC-Exercicios/blob/main/Exerc%C3%ADcio_Cientista_de_dados_M%C3%B3dulo38/Projeto/output/streamlit-Main-2024-06-14-19-06-64.mov
