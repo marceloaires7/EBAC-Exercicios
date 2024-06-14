@@ -8,8 +8,8 @@ from pycaret.classification import *
 
 df = pd.read_feather('.\input\credit_scoring.ftr')
 df.drop(columns=['index', 'data_ref'], inplace=True)
-data = df.reset_index(drop=True)
-data_unseen = df.drop(index=data.index).reset_index(drop=True)
+data = df.drop(columns='renda').sample(frac=0.95, random_state=123).reset_index(drop=True)
+data_unseen = df.reset_index(drop=True).drop(index=data.index, columns='renda').fillna({'tempo_emprego': -1})
 
 # %%
 
@@ -70,3 +70,6 @@ pred_proba
 # %%
 
 final_lightgbm
+# %%
+
+data_unseen

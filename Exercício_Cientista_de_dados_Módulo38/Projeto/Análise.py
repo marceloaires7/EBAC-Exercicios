@@ -165,24 +165,25 @@ def app():
         saved_lightgbm = load_model('Final_LightGBM_Model')
 
         st.code("new_prediction = predict_model(saved_lightgbm, data=data_unseen)")
-        new_prediction = predict_model(saved_lightgbm, data=data_unseen)
+        new_prediction = predict_model(saved_lightgbm, data=data_unseen.fillna({'tempo_emprego': -1}))
+
+        st.write(new_prediction)
 
         col1, col2 = st.columns(2)
         fig, ax = plt.subplots(figsize=(5,4))
-        ct = pd.crosstab(new_prediction['mau'], new_prediction['prediction_label'])
+        ct = pd.crosstab(new_prediction['mau'].map({True: 'Mau', False: 'Bom'}), new_prediction['prediction_label'].map({0: 'predBom', 1: 'predMau'}))
         ax = sns.heatmap(ct,
                          annot=True,
                          cmap="YlGnBu",
                          fmt='d',
                          linewidths=.5,
-                         linecolor='black',
-                         xticklabels=new_prediction['prediction_label'].map({0: 'Bom', 1: 'Mau'}).unique(),
-                         yticklabels=new_prediction['mau'].map({True: 'Mau', False: 'Bom'}).unique())
+                         linecolor='black')
         ax.set_title("CONFUSION MATRIX")
         ax.set_xlabel('PREDICTED VALUE')
         ax.set_ylabel('TARGET')
 
         col1.pyplot(fig)
+        col2.write(ct)
                 
 ############
 ## except ##
