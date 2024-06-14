@@ -94,7 +94,7 @@ class Multiapp:
                 df = script.load_data(st.session_state['upload'])
                 file_name = st.session_state.get('upload').name
                 st.session_state['df'] = df, file_name
-                st.session_state['data'] = df.reset_index(drop=True).sample(frac=.95, random_state=123)
+                st.session_state['data'] = df.reset_index(drop=True).sample(frac=.55, random_state=123)
                 st.session_state['data_unseen'] = df.reset_index(drop=True).drop(index=st.session_state['data'].index).reset_index(drop=True)
 
 

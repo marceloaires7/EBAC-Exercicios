@@ -37,6 +37,15 @@ def app():
 
     try:
 
+##########################
+## Busca das Variáveis: ##
+##########################
+
+        st.write('### Busca das Variáveis:')
+        st.code('data = df.reset_index(drop=True).sample(frac=.55, random_state=123)', language='python')
+        st.code('data_unseen = df.reset_index(drop=True).drop(index=data.index)', language='python')
+
+
 ###########################################################
 ## Definindo as variaveis alojadas no 'st.session_state' ##
 ###########################################################
@@ -67,15 +76,13 @@ def app():
                     numeric_imputation=-1)
 
         
-        col1, col2, col3, col4 = st.columns([1,1,1,1])
+        col1, col2, col3 = st.columns([1,1,1])
 
         col1.write(clf._display_container[0][:8])
 
         col2.write(clf._display_container[0][8:16])
        
         col3.write(clf._display_container[0][16:24])
-      
-        col4.write(clf._display_container[0][24:])
 
         st.write('### Lista de modelos utilizados no PyCaret:')
 
@@ -152,8 +159,12 @@ def app():
 ##################################
 
         st.write('### Salvamento com save_model():')
+
         st.code("save_model(final_lightgbm, 'Final_LightGBM_Model')")
         save_model(final_lightgbm, 'Final_LightGBM_Model')
+
+        st.code("saved_lightgbm = load_model('Final_LightGBM_Model')")
+        saved_lightgbm = load_model('Final_LightGBM_Model')
         
 ####################################
 ## Previsões com predict_model(): ##
@@ -161,15 +172,12 @@ def app():
 
         st.write('### Previsões com predict_model():')
 
-        st.code("saved_lightgbm = load_model('Final_LightGBM_Model')")
-        saved_lightgbm = load_model('Final_LightGBM_Model')
 
         st.code("new_prediction = predict_model(saved_lightgbm, data=data_unseen)")
         new_prediction = predict_model(saved_lightgbm, data=data_unseen.fillna({'tempo_emprego': -1}))
 
-        st.write(new_prediction)
+        st.write(new_prediction.head())
 
-        col1, col2 = st.columns(2)
         fig, ax = plt.subplots(figsize=(5,4))
         ct = pd.crosstab(new_prediction['mau'].map({True: 'Mau', False: 'Bom'}), new_prediction['prediction_label'].map({0: 'predBom', 1: 'predMau'}))
         ax = sns.heatmap(ct,
@@ -182,15 +190,27 @@ def app():
         ax.set_xlabel('PREDICTED VALUE')
         ax.set_ylabel('TARGET')
 
+        st.write('#### CONFUSION MATRIX do "data_unseen":')
+        col1, col2 = st.columns(2)
         col1.pyplot(fig)
         col2.write(ct)
+
+        st.write('''
+                 ### Resultados:
+                 Os dados representados na matriz de confusão vieram do dataset "data_unseen".
+                 Utilizamos o modelo criado para fazer a predição desses dados, permitindo avaliar sua eficácia e capacidade de generalização em situações do mundo real.
+                 - True Positives (TP): O número de casos em que a classe foi corretamente prevista como "Bom". Aqui, o valor é 310553.
+                 - False Positives (FP): O número de casos em que a classe foi incorretamente prevista como "Bom". Aqui, o valor é 654.
+                 - False Negatives (FN): O número de casos em que a classe foi incorretamente prevista como "Mau". Aqui, o valor é 25495.
+                 - True Negatives (TN): O número de casos em que a classe foi corretamente prevista como "Mau". Aqui, o valor é 798.
+                 ''')
                 
 ############
 ## except ##
 ############
 
     except ValueError as e:
+        st.write(e)
         st.error('Suba um arquivo válido.', icon='⛔')
         st.error('Indísponível.', icon='⚠️')
-        st.write(e)
     

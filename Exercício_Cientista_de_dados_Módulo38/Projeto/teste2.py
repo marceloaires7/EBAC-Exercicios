@@ -8,8 +8,8 @@ from pycaret.classification import *
 
 df = pd.read_feather('.\input\credit_scoring.ftr')
 df.drop(columns=['index', 'data_ref'], inplace=True)
-data = df.drop(columns='renda').sample(frac=0.95, random_state=123).reset_index(drop=True)
-data_unseen = df.reset_index(drop=True).drop(index=data.index, columns='renda').fillna({'tempo_emprego': -1})
+data = df.reset_index(drop=True).sample(frac=.55, random_state=123)
+data_unseen = df.reset_index(drop=True).drop(index=data.index).reset_index(drop=True)
 
 # %%
 
@@ -69,7 +69,9 @@ pred_proba
 
 # %%
 
-final_lightgbm
+data_unseen['pred'] = final_lightgbm.predict(data_unseen.drop(columns='mau'))
+data_unseen
+
 # %%
 
-data_unseen
+pd.crosstab(data_unseen['mau'], data_unseen['pred'])

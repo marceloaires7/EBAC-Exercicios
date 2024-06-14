@@ -147,20 +147,20 @@ def biv_continua(var, ncat, df):
     return biv
 
 @st.cache_data
-def print_metricas(dados, PD='PD', CLASSE_PRED='classe_predita', RESP='mau'):
+def print_metricas(dados, RESP='mau'):
 
     #Acuracia
-    acc = accuracy_score(dados[RESP], dados[CLASSE_PRED])
+    acc = accuracy_score(dados[RESP], dados['classe_predita'])
 
     #AUC
-    auc = roc_auc_score(dados[RESP], dados[PD])
+    auc = roc_auc_score(dados[RESP], dados['PD'])
 
     #Gini
     gini = 2 * auc - 1
 
     #KS
-    ks = ks_2samp(dados.loc[dados[RESP] == 1, PD], dados.loc[dados[RESP] != 1,
-                                                             PD]).statistic
+    ks = ks_2samp(dados.loc[dados[RESP] == 1, 'PD'], dados.loc[dados[RESP] != 1,
+                                                             'PD']).statistic
 
     print('KS:       {0:.2f}%'.format(ks * 100))
     print('AUC:      {0:.2f}%'.format(auc * 100))
