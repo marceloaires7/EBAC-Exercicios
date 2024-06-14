@@ -26,8 +26,8 @@ def app():
 - **Criação com create_model():** Construímos o modelo inicial com LightGBM.
 - **Ajuste com tune_model():** Otimizamos o modelo.''')
 
-    col2.write('''- **Visualização com plot_model():** Apresentamos gráficos de desempenho.
-- **Finalização com finalize_model():** Consolidamos o modelo.
+    col2.write('''- **Finalização com finalize_model():** Consolidamos o modelo.
+- **Visualização com plot_model():** Apresentamos gráficos de desempenho.
 - **Salvamento com save_model():** Armazenamos o modelo final.
 - **Previsões com predict_model():** Fazemos previsões em novos dados.''')
            
@@ -37,9 +37,9 @@ def app():
 
     try:
 
-##########################################################
-# Definindo as variaveis alojadas no 'st.session_state' ##
-##########################################################
+###########################################################
+## Definindo as variaveis alojadas no 'st.session_state' ##
+###########################################################
         
         if 'pullMod' not in st.session_state:
             st.session_state['pullMod'] = {}
@@ -47,26 +47,25 @@ def app():
         if 'pullTuned' not in st.session_state:
             st.session_state['pullTuned'] = {}
 
-        data = st.session_state['data'].sample(50000, random_state=42)
+        data = st.session_state['data']
         data_unseen = st.session_state['data_unseen']
 
 #################################################
 ## Configurando o Modelo com o Pycaret (setup) ##
 #################################################
 
+        st.write('### Configuração com setup():')
+
+        st.code('''clf = setup(data=data,
+            target='mau',
+            session_id=123,
+            numeric_imputation=-1)''')
+
         clf = setup(data=data,
                     target='mau',
                     session_id=123,
-                    numeric_imputation=-1,
-                    pca=True,
-                    pca_method='linear',
-                    normalize=True,
-                    normalize_method='robust',
-                    remove_outliers=True,
-                    fix_imbalance=True,
-                    fix_imbalance_method='TomekLinks')
+                    numeric_imputation=-1)
 
-        st.write('### Configuração do modelo criado no PyCaret:')
         
         col1, col2, col3, col4 = st.columns([1,1,1,1])
 
@@ -92,8 +91,8 @@ def app():
 ##############################################################################
         
         col1, col2 = st.columns(2)
-        col1.write('### CrossValidation dos modelos criados do comando:')
-        col1.code("lightgbm = createmodel(estimator='lightgbm', fold=5)", language='python')
+        col1.write('### Criação com create_model():')
+        col1.code("lightgbm = create_model(estimator='lightgbm', fold=5)", language='python')
 
         lightgbm = script.createmodel(estimator='lightgbm', fold=5)
         st.session_state['pullMod'] = lightgbm[1]
@@ -103,55 +102,79 @@ def app():
 ## Tunando o Modelo com 'tune_model' utilizando estimator='lightgbm' ##
 #######################################################################
 
-        col2.write('### CrossValidation dos modelos tunados do comando:')
-        col2.code("tuned_lightgbm = tunemodel(lightgbm, fold=5, optimize='Accuracy', fold=5)", language='python')
+        col2.write('### Ajuste com tune_model():')
+        col2.code("tuned_lightgbm = tune_model(lightgbm, fold=5, optimize='MCC')", language='python')
 
-        tuned_lightgbm = script.tunemodel(_estimator=lightgbm[0], fold=5, optimize='Precision')
+        tuned_lightgbm = script.tunemodel(_estimator=lightgbm[0], fold=5, optimize='MCC')
         st.session_state['pullTuned'] = tuned_lightgbm[1]
         col2.write(st.session_state['pullTuned'].style.apply(lambda row: ['background-color: yellow'] * len(row) if row.name == 'Mean' else [''] * len(row), axis=1))
-        
-############################################
-## Plotando gráficos gerados pelo PyCaret ##
-############################################
-
-        col1, col2 = st.columns(2)
-       
-        fig, ax = plt.subplots(figsize=(5,4))
-        col1.write('### CURVA ROC:')
-        col1.image(plot_model(tuned_lightgbm[0], plot = 'auc', save='./output'), width=550)
-        col2.write('### ESTATÍSTICAS DO KS:')
-        col2.image(plot_model(tuned_lightgbm[0], plot = 'ks', save='./output'), width=600)
-        
-        col1, col2 = st.columns(2)
-       
-        fig, ax = plt.subplots(figsize=(5,4))
-        
-        col1.write('### CURVA PRECISION-RECALL:')
-        col1.image(plot_model(tuned_lightgbm[0], plot = 'pr', save='./output'), width=550)
-        col2.write('### FEATURE IMPORTANCE:')
-        col2.image(plot_model(tuned_lightgbm[0], plot = 'feature', save='./output'), width=600)
-        
-        col1, col2 = st.columns(2)
-       
-        fig, ax = plt.subplots(figsize=(5,4))
-        
-        col1.write('### CONFUSION MATRIX:')
-        col1.image(plot_model(tuned_lightgbm[0], plot = 'confusion_matrix', save='./output'), width=550)
 
 ##################
 ## Modelo Final ##
 ##################
+        st.write('### Finalização com finalize_model():')
+        st.code('final_lightgbm = finalize_model(tuned_lightgbm)', language='python')
         final_lightgbm = finalize_model(tuned_lightgbm[0])
+        st.write(final_lightgbm)
+        
+############################################
+## Plotando gráficos gerados pelo PyCaret ##
+############################################
+        st.write('### Visualização com plot_model():')
 
-        st.write(predict_model(tuned_lightgbm[0]))
+        col1, col2 = st.columns(2)
+       
+        fig, ax = plt.subplots(figsize=(5,4))
+        col1.write('#### CURVA ROC:')
+        col1.image(plot_model(final_lightgbm, plot = 'auc', save='./output'), width=550)
+        col2.write('#### ESTATÍSTICAS DO KS:')
+        col2.image(plot_model(final_lightgbm, plot = 'ks', save='./output'), width=600)
+        
+        col1, col2 = st.columns(2)
+       
+        fig, ax = plt.subplots(figsize=(5,4))
+        
+        col1.write('#### CURVA PRECISION-RECALL:')
+        col1.image(plot_model(final_lightgbm, plot = 'pr', save='./output'), width=550)
+        col2.write('#### FEATURE IMPORTANCE:')
+        col2.image(plot_model(final_lightgbm, plot = 'feature', save='./output'), width=600)
+        
+        col1, col2 = st.columns(2)
+       
+        fig, ax = plt.subplots(figsize=(5,4))
+        
+        col1.write('#### CONFUSION MATRIX:')
+        col1.image(plot_model(final_lightgbm, plot = 'confusion_matrix', save='./output'), width=550)
 
-        roc_plot = plot_model(final_lightgbm, plot='auc', save='./output')
-        st.image(roc_plot)
-        st.write(evaluate_model(estimator=final_lightgbm, fold=5))
+##################################
+## Salvamento com save_model(): ##
+##################################
 
-###########
-# except ##
-###########
+        st.write('### Salvamento com save_model():')
+        st.code("save_model(final_lightgbm, 'Final_LightGBM_Model')")
+        save_model(final_lightgbm, 'Final_LightGBM_Model')
+        
+####################################
+## Previsões com predict_model(): ##
+####################################
+        col1, col2 = st.columns(2)
+
+        st.write('### Previsões com predict_model():')
+
+        st.code("saved_lightgbm = load_model('Final_LightGBM_Model')")
+        saved_lightgbm = load_model('Final_LightGBM_Model')
+
+        st.code("new_prediction = predict_model(saved_lightgbm, data=data_unseen)")
+        new_prediction = predict_model(saved_lightgbm, data=data_unseen)
+
+        fig, ax = plt.subplots(figsize=(5,4))
+        ct = pd.crosstab(new_prediction['mau'], new_prediction['prediction_label'])
+        ax = sns.heatmap(ct, annot=True, cmap="YlGnBu", fmt='d', linewidths=.5, linecolor='black', xticklabels=new_prediction['prediction_label'].map({0: 'Bom', 1: 'Mau'}).unique())
+        col1.pyplot(fig)
+                
+############
+## except ##
+############
 
     except ValueError as e:
         st.error('Suba um arquivo válido.', icon='⛔')

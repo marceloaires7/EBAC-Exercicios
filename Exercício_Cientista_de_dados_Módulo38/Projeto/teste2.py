@@ -16,12 +16,7 @@ data_unseen = df.drop(data.index)
 clf = setup(data=data,
             target='mau',
             session_id=123,
-            numeric_imputation=-1,
-            pca=True,
-            pca_method='linear',
-            normalize=True,
-            normalize_method='robust',
-            remove_outliers=True)
+            numeric_imputation=-1)
 # %%
 
 lightgbm = create_model(estimator='lightgbm', fold=5)
@@ -48,6 +43,10 @@ plot_model(final_lightgbm, plot='auc')
 
 # %%
 
+save_model(final_lightgbm, 'Saved_LIGHTGBM')
+
+# %%
+
 plot_model(estimator=final_lightgbm, plot='confusion_matrix')
 
 # %%
@@ -69,3 +68,5 @@ pred_proba = pd.concat([pred_proba, pred_proba.diff().dropna().rename({True: 'Di
 pred_proba
 
 # %%
+
+final_lightgbm
