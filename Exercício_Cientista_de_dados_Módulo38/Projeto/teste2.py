@@ -75,3 +75,7 @@ data_unseen
 # %%
 
 pd.crosstab(data_unseen['mau'], data_unseen['pred'])
+
+# %%
+
+pull()

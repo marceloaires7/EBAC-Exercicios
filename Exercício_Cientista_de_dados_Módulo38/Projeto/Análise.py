@@ -56,6 +56,15 @@ def app():
         if 'pullTuned' not in st.session_state:
             st.session_state['pullTuned'] = {}
 
+        if 'pullPred' not in st.session_state:
+            st.session_state['pullPred'] = ''
+
+        if 'lightgbm' not in st.session_state:
+            st.session_state['lightgbm'] = ''
+
+        if 'tuned_lightgbm' not in st.session_state:
+            st.session_state['tuned_lightgbm'] = ''
+
         data = st.session_state['data']
         data_unseen = st.session_state['data_unseen']
 
@@ -102,6 +111,7 @@ def app():
         col1.code("lightgbm = create_model(estimator='lightgbm', fold=5)", language='python')
 
         lightgbm = script.createmodel(estimator='lightgbm', fold=5)
+        st.session_state['lightgbm'] = lightgbm[0]
         st.session_state['pullMod'] = lightgbm[1]
         col1.write(st.session_state['pullMod'].style.apply(lambda row: ['background-color: yellow'] * len(row) if row.name == 'Mean' else [''] * len(row), axis=1))
 
@@ -113,6 +123,7 @@ def app():
         col2.code("tuned_lightgbm = tune_model(lightgbm, fold=5, optimize='MCC')", language='python')
 
         tuned_lightgbm = script.tunemodel(_estimator=lightgbm[0], fold=5, optimize='MCC')
+        st.session_state['lightgbm'] = tuned_lightgbm[0]
         st.session_state['pullTuned'] = tuned_lightgbm[1]
         col2.write(st.session_state['pullTuned'].style.apply(lambda row: ['background-color: yellow'] * len(row) if row.name == 'Mean' else [''] * len(row), axis=1))
 
@@ -195,6 +206,12 @@ def app():
         col1.pyplot(fig)
         col2.write(ct)
 
+        if st.session_state['pullPred'] is '':
+                st.session_state['pullPred'] = pull()
+        else:
+                None
+
+
         st.write('''
                  ### Resultados:
                  Os dados representados na matriz de confusão vieram do dataset "data_unseen".
@@ -203,6 +220,19 @@ def app():
                  - False Positives (FP): O número de casos em que a classe foi incorretamente prevista como "Bom". Aqui, o valor é 654.
                  - False Negatives (FN): O número de casos em que a classe foi incorretamente prevista como "Mau". Aqui, o valor é 25495.
                  - True Negatives (TN): O número de casos em que a classe foi corretamente prevista como "Mau". Aqui, o valor é 798.
+                 ''')
+        
+        st.write('### Avaliação:')
+        st.write(st.session_state['pullPred'])
+
+        st.write('''
+                 - **Accuracy:** A acurácia de cerca de 92,25% é alta, indicando que o modelo está se saindo bem no geral.
+                 - **AUC:** Tem o valor de aproximadamente 78,17%. O que indica que o modelo tem uma habilidade moderada de distinguir entre as classes "Bom" e "Mau".
+                 - **Recall:** O recall para a classe "Mau" é muito baixo (3,04%), o que significa que o modelo não é bom em identificar instâncias da classe "Mau".
+                 - **Precisão:** A precisão para a classe "Mau" é moderada (54,96%), significando que, quando o modelo prevê "Mau", ele está correto 54,96% das vezes.
+                 - **F1:** O F1 Score para a classe "Mau" é aproximadamente 5,75%, indicando um baixo equilíbrio entre precisão e recall para esta classe.
+                 - **Kappa:** O valor de Kappa é aproximadamente 4,98%, sugerindo uma baixa concordância entre as classificações observadas e esperadas considerando o acaso.
+                 - **MCC:** O MCC é aproximadamente 11,57%, indica que há uma correlação positiva muito fraca entre as predições do modelo e os valores reais.
                  ''')
                 
 ############
